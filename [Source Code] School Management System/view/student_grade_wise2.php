@@ -8,8 +8,17 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 <div class="col-md-8">
 	<div class="box">
     	<div class="box-header">
-        	<h3 class="box-title">My Student</h3>
+        <div class="box-header">
+            <h3 class="box-title">My Student</h3>
+            <a  href="add_student2.php" class="btn btn-info btn-xs" style="margin-left:430px;">Add Student</a>
         </div><!-- /.box-header -->
+       <!-- <div class="row">
+        <div class="col-md-6"><div class="box-header">
+            <h3 class="box-title">My Student</h3>
+           </div></div>
+    <div class="col-md-offset-3 col-md-3 ms-auto"><a  href="add_student2.php" class="btn btn-info btn-xs">Add Student</a>
+</div></div>-->
+  </div>
         <div class="box-body table-responsive">
         	<table id="example1" class="table table-bordered table-striped">
             	<thead>

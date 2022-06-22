@@ -40,7 +40,7 @@ $image=$row['image_name'];
         </li>
          <li>
           <a href="my_student.php">
-            <i class="fa fa-graduation-cap"></i> <span>My Student</span>
+            <i class="fa fa-graduation-cap"></i> <span>My Class Management</span>
           </a>
         </li>
         <li class="treeview">
