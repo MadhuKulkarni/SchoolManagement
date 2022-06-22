@@ -396,27 +396,27 @@ display:none;
             <div class="col-xs-6">
             	<!-- general form elements -->
               	<div class="box box-primary">
-                	<div class="box-header with-border">
-                  		<h3 class="box-title">Select Grade</h3>
+              		<div class="box-header with-border">
+                  		<h3 class="box-title">Select Class</h3>
                 	</div><!-- /.box-header -->
                 
                   	<div class="box-body" >
                   		<div class="form-group" id="divGender">
                     		<div class="col-xs-3">
-                      			<label for="exampleInputPassword1">Grade</label>
+                      			<label for="exampleInputPassword1">Class</label>
                     		</div>
                     		<div class="col-xs-4" id="divGender1">
                     			<select name="grade" class="form-control" id="grade" ><!--MSK-000107-->
-                    				<option>Select Grade</option>
-<?php
-include_once('../controller/config.php');
-$sql="SELECT * FROM grade";
-$result=mysqli_query($conn,$sql);
-if(mysqli_num_rows($result) > 0){
-	while($row=mysqli_fetch_assoc($result)){
-?> 
-     								<option value="<?php echo $row["id"]; ?>"><?php echo $row['name']; ?></option>
-<?php }} ?>
+                    				<option>Select Class</option>
+										<?php
+										include_once('../controller/config.php');
+										$sql="SELECT * FROM grade";
+										$result=mysqli_query($conn,$sql);
+										if(mysqli_num_rows($result) > 0){
+											while($row=mysqli_fetch_assoc($result)){
+										?> 
+										<option value="<?php echo $row["id"]; ?>"><?php echo $row['name']; ?></option>
+										<?php }} ?>
 					  			</select>
                      		</div>
                     	</div>
