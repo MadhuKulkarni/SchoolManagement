@@ -21,12 +21,12 @@ try{
             
             
           
-            $var_msg = "This is an exception example";
-            throw new Exception($var_msg);
+            $response;
+       
             if(!mysqli_query($conn, $sql)) {
                 // $response = 'Error inserting the duplicates';
                 $response = 'Error inserting the duplicates';
-                throw new Exception($var_msg);
+                throw new Exception($response);
             }
         
         }
