@@ -70,7 +70,7 @@ if(isset($_arguments["do"])&& ($_arguments["do"] != "")){
 		$page = "model/add_group_message.php";
 	}																				
 }else{
-	header("Location: view/login.php");
+	header("Location: /view/login.php");
 }
 require $page;
 
