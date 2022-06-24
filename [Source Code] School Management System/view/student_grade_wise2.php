@@ -124,6 +124,8 @@
                                  <option value="27-06-2022">27-06-2022</option>
                                  <option value="28-06-2022">28-06-2022</option>
                                  <option value="29-06-2022">29-06-2022</option>
+                                 <option value="01-07-2022">01-07-2022</option>
+                                 <option value="02-07-2022">02-07-2022</option>
                               </select>
                            </div>
 						   <div class="form-group col-md-1 mr-2"></div>
@@ -135,6 +137,7 @@
                                  <option value="14:00-15:00">14:00-15:00</option>
                                  <option value="15:30-16:30">15:30-16:30</option>
                                  <option value="11:00-12:00">11:00-12:00</option>
+
                               </select>
                            </div>
                            <div class="form-group col-md-1 mr-2"></div>
@@ -150,12 +153,13 @@
 								<h3 class="box-title"><strong>Attendance List</strong></h3>
 				  				<!-- alert from response -->
 								<span class="attendance-status" style="padding: 0 8px;color: deepskyblue; background: antiquewhite; border-radius: 10px;float: right;"></span>
-								<div id="displayStud"><div>
 							</div>
 							<!-- /.box-header -->
+
+                     <!-- load students from my_student jquery and load_students page -->
 							<div class="box-body table-responsive " id="table2">
 								
-							</div><!-- end of box -->
+                     </div><!-- end of box -->
 						</div><!-- end of box -->
 
 					</div><!-- end of col-md-8 -->

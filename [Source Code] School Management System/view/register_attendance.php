@@ -18,28 +18,27 @@ try{
         
             $sql = "INSERT INTO my_attendance (studId, subject, date, time, attendance) VALUES( ".$studId.", '" . $subject . "', '" . $date . "', '" . $time . "', '" . $attendance . "')";
 
-            
-            
-          
-            $response;
+
        
             if(!mysqli_query($conn, $sql)) {
-                // $response = 'Error inserting the duplicates';
-                $response = 'Error inserting the duplicates';
+                $response = 'Error: The same record is been submitted';
                 throw new Exception($response);
             }
         
         }
 
         $response = 'Attendance registered successfully';
+        
     }
    
-    catch(Exception $e){
-        echo $response = $e->getMessage();
+catch(Exception $e){
+        $response = $e->getMessage();
+        
     }
-   
 
-    // echo $response;
+    echo $response;
+
+    // to do: in case of reattendance for the same duration update is required...
 ?>
 
 

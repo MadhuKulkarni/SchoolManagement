@@ -1145,8 +1145,14 @@ $('body').on('click', '.submitDetails', function(e){
             url:"register_attendance.php",    
             type: "post",
             data:{data: rowdata},
-            success:function(result){ 
-               $('.attendance-status').text(result);
+            success:function(response){ 
+               $('.attendance-status').text(response);
+               setTimeout(clearMsg, 4000);
+
+               function clearMsg(){
+                  $('.attendance-status').text('');
+               }
+              
             }
             
       });
