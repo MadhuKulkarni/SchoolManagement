@@ -426,8 +426,7 @@ display:none;
               	</div><!-- /.box -->
             </div>
 		</div>
-	</section>
-          
+	</section>      
 	<!-- table for view all records -->
     <section class="content" > <!-- Start of table section -->
     	<div class="row" id="table1"><!--MSK-000112--> 
