@@ -15,12 +15,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
             $grade_id=$_GET['grade'];
             ?>
            <div class="col-md-offset-11"> <a  href="add_student2.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-info btn-xs">Add Student</a></div>
-        </div><!-- /.box-header -->
-       <!-- <div class="row">
-        <div class="col-md-6"><div class="box-header">
-            <h3 class="box-title">My Student</h3>
-           </div></div>
-    <div class="col-md-offset-3 col-md-3 ms-auto"></div></div>-->
+        </div>
   </div>
         <div class="box-body table-responsive">
             <table id="example1" class="table table-bordered table-striped">

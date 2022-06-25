@@ -11,7 +11,6 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 <?php include_once('alert.php'); ?>
 
 <style>
-
 .msk-modal-content {
    position: absolute;
    left: 125px; 

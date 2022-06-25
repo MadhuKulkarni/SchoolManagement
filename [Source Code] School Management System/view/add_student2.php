@@ -27,8 +27,6 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 
 }
 
-
-
 @media print{
 
 	body{

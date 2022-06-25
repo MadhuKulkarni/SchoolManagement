@@ -75,7 +75,6 @@ if(isset($_arguments["do"])&& ($_arguments["do"] != "")){
 	header("Location: view/login.php");
 }
 require $page;
-
 ?>
 
 
