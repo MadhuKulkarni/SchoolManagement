@@ -25,6 +25,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
                     <th class="col-md-7">Action</th>
                 </thead>
                 <tbody>
+                    
 <?php
 include_once('../controller/config.php');
 $grade_id=$_GET['grade'];
