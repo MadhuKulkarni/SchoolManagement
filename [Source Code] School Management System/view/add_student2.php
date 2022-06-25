@@ -245,6 +245,9 @@ display:none;
 <?php
 
 include_once('../controller/config.php');
+
+$grade_id=$_GET["grade_id"];
+
 include_once('model/add_student2.php');
 
 ?>
@@ -437,9 +440,9 @@ include_once('model/add_student2.php');
                             </div><br>
                     	</div>
                        <div class="box-footer text-right">
-                  			 <input type="hidden" name="do" value="add_student"  />
-                              <input type="hidden" name="std_index" value="<?php //echo $std_index; ?>">
-                             <input type="hidden" name="grade_id" value="<?php //echo $grade_id; ?>">
+                  			 <input type="hidden" name="do" value="add_class_student"  />
+                              <input type="hidden" name="std_index" value="<?php echo $std_index; ?>">
+                             <input type="hidden" name="grade_id" value="<?php echo $grade_id; ?>">
                             <input type="hidden" name="showPage" value="my_student">
                     		<button style="width:150px;" type="submit" class="btn text-right btn-warning asd" id="btnSubmit">Add</button><br>
                         </div>
