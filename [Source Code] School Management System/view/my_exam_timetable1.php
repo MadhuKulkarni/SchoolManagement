@@ -28,6 +28,7 @@ $row1=mysqli_fetch_assoc($result1);
         <div class="box-body table-responsive">
         	<table class="table table-bordered table-striped">
             	<thead style="color:white; background-color:#666;">
+					<th class="col-md-1">Date</th>
                 	<th class="col-md-1">Time</th>
                     <th class="col-md-1">Sunday</th>
                     <th class="col-md-1">Monday</th>
@@ -44,13 +45,15 @@ $grade_id=$_GET['grade'];
 $exam_id=$_GET['exam'];	
 
 $sql2="SELECT 
-	   DISTINCT start_time,end_time
+	   id,exam_date, start_time,end_time
        FROM
           exam_timetable
        WHERE
           grade_id='$grade_id' and  exam_id='$exam_id' 
+		GROUP BY
+		  start_time  
        ORDER BY
-          start_time";
+          start_time";		
 		  
 $result2=mysqli_query($conn,$sql2);
 while($row2=mysqli_fetch_assoc($result2)){
@@ -59,6 +62,7 @@ while($row2=mysqli_fetch_assoc($result2)){
 	
 ?>    
                  	<tr id="<?php echo $s_time; ?>_<?php echo $e_time; ?>" >
+					<th><?php echo $row2['exam_date'];?> </th>
                     	<th  style="color:white; background-color:#666;">
                         	<span id="spanSTime_<?php echo $row2['id']; ?>" data-id="<?php echo $s_time; ?>"><?php echo $s_time; ?></span> - 		
                             <span id="spanETime_<?php echo $row2['id']; ?>" data-id="<?php echo $e_time; ?>"><?php echo $e_time; ?></span>

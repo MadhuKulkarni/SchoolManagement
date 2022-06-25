@@ -68,6 +68,12 @@ if(mysqli_num_rows($result) > 0){
 <?php }} ?> 	           
 									</select>
         						</div> 
+							
+								<div class="form-group" id="divStartTime">
+
+                					<label for="" >Date</label>
+        							<input type="date" class="form-control" id="date" name="start_date"  placeholder="Enter Date" autocomplete="off"/>
+        						</div>
                                 <div class="form-group" id="divStartTime">
                 					<label for="" >Start Time</label>
         							<input type="text" class="form-control" id="start_time" name="start_time"  placeholder="Enter start time" autocomplete="off"/>
