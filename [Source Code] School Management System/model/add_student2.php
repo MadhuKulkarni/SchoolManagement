@@ -51,7 +51,7 @@ if(isset($_POST["do"])&&($_POST["do"]=="add_class_student")){
 	$image_path =  $target_dir.$filename.".".$extention;
 	$g_image_path =  $target_dir.$filename1.".".$extention1;
 	
-	//Insert Student------------------------------------------------------------------------------------------------------------
+	//Insert Student--------------------------------------------------------------------------------------------------------------
 	$sql1="SELECT * FROM student where index_number='$index_number'";	
 	$result1=mysqli_query($conn,$sql1);
 	$row1=mysqli_fetch_assoc($result1);
