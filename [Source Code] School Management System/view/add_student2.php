@@ -249,8 +249,7 @@ $grade_id=$_GET["grade_id"];
 include_once('model/add_student2.php');
 
 ?>
-  
-    <!-- Main content -->
+  <!-- Main content -->
     <section class="content">
     	<div class="row">
             <div class="col-md-12">
