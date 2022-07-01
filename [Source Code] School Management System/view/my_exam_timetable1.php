@@ -5,6 +5,21 @@ if(!isset($_SERVER['HTTP_REFERER'])){
     exit;
 }
 ?>
+ <style>
+#timetable1 td, #timetable1 th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+#timetable1 tr:nth-child(even){background-color: #f2f2f2;}
+#timetable1 tr:hover {background-color: #ddd;}
+#timetable1 th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #ffffcc;
+  color: black;
+}
+</style>
 <div class="col-md-10">
 	<div class="box">
     	<div class="box-header">
@@ -26,8 +41,8 @@ $row1=mysqli_fetch_assoc($result1);
 <?php } ?>
 		</div><!-- /.box-header -->
         <div class="box-body table-responsive">
-        	<table class="table table-bordered table-striped">
-            	<thead style="color:white; background-color:#666;">
+        	<table class="table table-bordered table-striped" id="timetable1">
+            	<thead>
 					<th class="col-md-1">Date</th>
                 	<th class="col-md-1">Time</th>
                     <th class="col-md-1">Sunday</th>
@@ -62,11 +77,11 @@ while($row2=mysqli_fetch_assoc($result2)){
 	
 ?>    
                  	<tr id="<?php echo $s_time; ?>_<?php echo $e_time; ?>" >
-					<th><?php echo $row2['exam_date'];?> </th>
-                    	<th  style="color:white; background-color:#666;">
+					<td><?php echo $row2['exam_date'];?> </td>
+                    	<td>
                         	<span id="spanSTime_<?php echo $row2['id']; ?>" data-id="<?php echo $s_time; ?>"><?php echo $s_time; ?></span> - 		
                             <span id="spanETime_<?php echo $row2['id']; ?>" data-id="<?php echo $e_time; ?>"><?php echo $e_time; ?></span>
-                        </th>
+                        </td>
                         <td>
 <?php 
 include_once('../controller/config.php');
@@ -87,8 +102,9 @@ if (mysqli_num_rows($result) > 0) {
 		
 ?>    	
                       
-					   		<?php echo $row['s_name']; ?><br>
-                            <?php echo $row['c_name']; ?><br>
+					  <span style="color:red">Subject Name</span>: <?php echo $row['s_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Class Name</span>:      <?php echo $row['c_name']; ?><br>
                        	
 <?php } } ?>
 	

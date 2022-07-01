@@ -9,6 +9,9 @@
     if(isset($_POST['grade'])) {
         $grade = (int)$_POST['grade'];
     }
+    if(isset($_POST['exam'])) {
+        $exam = (int)$_POST['exam'];
+    }
 
         // Allowed mime types
         $fileMimes = array(  
@@ -39,37 +42,25 @@
                 // Get row data
             
                 $index_number= mysqli_real_escape_string($conn, $getData[0]);
-                $full_name = $getData[1];
-                $i_name = $getData[2];
-                $gender = $getData[3];
-                $address = $getData[4];
-                $phone = $getData[5];              
-                $email = trim($getData[6]);
-                $image_name = $getData[7];
-                $b_date = $getData[8];
-                $_status = $getData[9];
-                $reg_year = $getData[10];
-                $reg_month = $getData[11];
-                $reg_date = $getData[12];
+                $subject_id = $getData[1];
+                $marks = $getData[2];
+                $year = $getData[3];
+                $date = $getData[4];
+               
                 
-                $email_warning = false;
+             
 
-                if($email != '') {
-                    // If user already exists in the database with the same email
-                    $query = "SELECT id FROM student WHERE email = '" . $getData[6] . "'";
-
+                if(($index_number!= '') && ($subject_id!='') && ($exam!='')&&($year!='')) {
+                    // // If user already exists in the database with the same email
+                     $query = "SELECT id FROM student_exam WHERE index_number = " . $index_number ." AND subject_id = ".$subject_id ." AND year= '" .$year."' AND grade_id= ".$grade ." AND exam_id=".$exam;
+                  
                     $check = mysqli_query($conn, $query);
-                    $query1 = "SELECT index_number FROM student ORDER BY id DESC LIMIT 1";
-                    $last_row = mysqli_query($conn, $query1);
-                    while ($row = mysqli_fetch_array($last_row)) {
-                        $next_index_number = $row[0] + 1;
-                    }
                     // echo "<pre>";
                     // print_r ($check); 
                     // echo "</pre>";
                     
                     if ($check->num_rows > 0) {
-                        $query = "UPDATE student SET full_name = '" . $full_name . "', i_name = '" . $i_name . "',gender = '" . $gender . "',address = '" . $address . "',phone = '" . $phone . "',image_name = '" . $image_name . "', b_date = '" . $b_date . "', _status = '" . $_status . "',reg_year = '" . $reg_year . "', reg_month = '" . $reg_month . "', reg_date = '" . $reg_date . "' WHERE email = '" . $email . "'";
+                        $query = "UPDATE student_exam SET marks = '" . $marks ."' WHERE index_number = " . $index_number ." AND subject_id = ".$subject_id ." AND year= '" .$year."' AND grade_id= ".$grade ." AND exam_id=".$exam;
                         //echo $query;
                         if (mysqli_query($conn, $query)) {
                             $students_count++;
@@ -87,7 +78,7 @@
                             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                         }
                     } else {
-                        $query = "INSERT INTO student (index_number,full_name,i_name,gender,address,phone,email,image_name,b_date,_status,reg_year,reg_month,reg_date) VALUES (" . $next_index_number . ", '" . $full_name . "','" . $i_name . "','" . $gender . "','" . $address . "', '" . $phone . "','" . $email . "','" . $image_name . "','" . $b_date . "','" . $_status . "','" . $reg_year . "','" . $reg_month . "','" . $reg_date . "')";
+                        $query = "INSERT INTO student_exam (index_number,grade_id,exam_id,subject_id,marks,year,date) VALUES (" . $index_number . ", " . $grade . "," . $exam . "," . $subject_id . ",'" . $marks . "', '" . $year . "','" . $date. "')";
                         if (mysqli_query($conn, $query)) {
                             // $last_id = mysqli_insert_id($conn);
 
@@ -97,30 +88,25 @@
                             // while ($row = mysqli_fetch_array($exec)) {                  
                             //     $index_number_rel = $row[0];
                             // }
-                            $query = "INSERT INTO student_grade (index_number, grade_id, year) VALUES (" . $next_index_number . ", " . $grade . ", '" . $reg_year . "')";
+                            // $query = "INSERT INTO student_grade (index_number, grade_id, year) VALUES (" . $next_index_number . ", " . $grade . ", '" . $reg_year . "')";
 
-                            if (!mysqli_query($conn, $query)) {
-                                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                            }
+                            // if (!mysqli_query($conn, $query)) {
+                            //     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                            // }
                         } else {
                             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
                         }
                     }
-                } else {
-                    $email_warning = true;
-                }
+                }   
             }
 
             // Close opened CSV file
             fclose($csvFile);
-            $email_warning_msg = '';
-            if($email_warning) {
-                $email_warning_msg = 'Warning: Please make sure to provide email ID for each student!';
-            }
+            
             if($students_count > 1) {
-                echo 'Uploaded '.$students_count.' Students Successfully. '.$email_warning_msg;
+                echo 'Uploaded '.$students_count.' Students Successfully. ';
             } else {
-                echo 'Uploaded '.$students_count.' Student Successfully. '.$email_warning_msg;
+                echo 'Uploaded '.$students_count.' Student Successfully. ';
             }
        } else {
            echo "Please select valid file";

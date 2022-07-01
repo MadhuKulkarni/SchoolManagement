@@ -5,6 +5,21 @@
        exit;
    }
    ?>
+ <style>
+#timetable1 td, #timetable1 th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+#timetable1 tr:nth-child(even){background-color: #f2f2f2;}
+#timetable1 tr:hover {background-color: #ddd;}
+#timetable1 th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #ffffcc;
+  color: black;
+}
+</style>
 <div class="col-md-10">
    <div class="box">
       <div class="box-header">
@@ -30,7 +45,7 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive">
-         <table id="example1" class="table table-bordered table-striped">
+         <table id="timetable1" class="table table-bordered table-striped">
             <thead style="color:white; background-color:#666;">
                <th class="col-md-1">Date</th>
                <th class="col-md-1">Time</th>
@@ -73,10 +88,10 @@
                   <td>
                      <?php echo $row2['exam_date']; ?>
                   </td>
-                  <th  style="color:white; background-color:#666;">
+                  <td>
                      <span id="spanSTime_<?php echo $row2['id']; ?>" data-id="<?php echo $s_time; ?>"><?php echo $s_time; ?></span> 		
                      <span id="spanETime_<?php echo $row2['id']; ?>" data-id="<?php echo $e_time; ?>"><?php echo $e_time; ?></span>
-                  </th>
+                  </td>
                   <td>
                      <?php 
                         include_once('../controller/config.php');
@@ -96,9 +111,10 @@
                         	while($row=mysqli_fetch_assoc($result)){ // while loop 1#
                         		
                         ?>    	
-                     <?php echo $row['s_name']; ?><br>
-                     <?php echo $row['c_name']; ?><br>
-                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><br><!--MSK-00131-Sunday-->  
+                     <span style="color:red">Subject Name</span>: <?php echo $row['s_name']; ?><br>
+                     <hr/>
+                     <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><!--MSK-00131-Sunday-->  
                      <!--MSK-00150-Sunday--><a href="#" class="confirm-delete btn btn-danger btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>">Delete</a><br>
                      <?php }//end of the while loop 1# ?>
                   </td>
@@ -126,9 +142,9 @@
                         if (mysqli_num_rows($result) > 0) { // 2#
                         	while($row=mysqli_fetch_assoc($result)){ // while loop 2#
                         ?>    	
-                     <?php echo $row['s_name']; ?><br>
-                     <?php echo $row['c_name']; ?><br>
-                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><br><!--MSK-00131-Monday-->  
+                    <span style="color:red">Subject Name</span>:  <?php echo $row['s_name']; ?><br>
+                    <span style="color:red">Class Name</span>:  <?php echo $row['c_name']; ?><br>
+                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><!--MSK-00131-Monday-->  
                      <!--MSK-00150-Monday--><a href="#" class="confirm-delete btn btn-danger btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>">Delete</a><br>
                      <?php } // end of the while loop 2# ?>
                   </td>
@@ -156,9 +172,9 @@
                         if (mysqli_num_rows($result) > 0) { // 3#
                         	while($row=mysqli_fetch_assoc($result)){ // while loop 3#
                         ?>    	
-                     <?php echo $row['s_name']; ?><br>
-                     <?php echo $row['c_name']; ?><br>
-                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><br><!--MSK-00131-Tuesday-->  
+                     <span style="color:red">Subject Name</span>: <?php echo $row['s_name']; ?><br>
+                     <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><!--MSK-00131-Tuesday-->  
                      <!--MSK-00150-Tuesday--><a href="#" class="confirm-delete btn btn-danger btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>">Delete</a><br>
                      <?php  } // end of the while loop 3# ?>
                   </td>
@@ -186,9 +202,9 @@
                         if (mysqli_num_rows($result) > 0) { // 4#
                         	while($row=mysqli_fetch_assoc($result)){ // while loop 4# 
                         ?>    	
-                     <?php echo $row['s_name']; ?><br>
-                     <?php echo $row['c_name']; ?><br>
-                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><br><!--MSK-00131-Wednesday-->  
+                     <span style="color:red">Subject Name</span>: <?php echo $row['s_name']; ?><br>
+                     <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><!--MSK-00131-Wednesday-->  
                      <!--MSK-00150-Wednesday--><a href="#" class="confirm-delete btn btn-danger btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>">Delete</a><br>
                      <?php } // end of the while loop 4#  ?>
                   </td>
@@ -216,9 +232,9 @@
                         if (mysqli_num_rows($result) > 0) { //5#
                         	while($row=mysqli_fetch_assoc($result)){ // while loop 5#
                         ?>    	
-                     <?php echo $row['s_name']; ?><br>
-                     <?php echo $row['c_name']; ?><br>
-                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><br><!--MSK-00131-Thursday--> 
+                    <span style="color:red">Subject Name</span>:  <?php echo $row['s_name']; ?><br>
+                    <span style="color:red">Class Name</span>:  <?php echo $row['c_name']; ?><br>
+                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><!--MSK-00131-Thursday--> 
                      <!--MSK-00150-Thursday--><a href="#" class="confirm-delete btn btn-danger btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>">Delete</a><br>
                      <?php } // end of the while loop 5# ?>
                   </td>
@@ -247,9 +263,9 @@
                         if (mysqli_num_rows($result) > 0) { // 6#
                         	while($row=mysqli_fetch_assoc($result)){// while loop 6#
                         ?>    	
-                     <?php echo $row['s_name']; ?><br>
-                     <?php echo $row['c_name']; ?><br>
-                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><br><!--MSK-00131-Friday-->  
+                     <span style="color:red">Subject Name</span>: <?php echo $row['s_name']; ?><br>
+                     <span style="color:red">Class Name</span>:  <?php echo $row['c_name']; ?><br>
+                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><!--MSK-00131-Friday-->  
                      <!--MSK-00150-Friday--><a href="#" class="confirm-delete btn btn-danger btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>">Delete</a><br>
                      <?php  } // end of the while loop 6#  ?>
                   </td>
@@ -278,9 +294,9 @@
                         	while($row=mysqli_fetch_assoc($result)){ // while loop 7#
                         	
                         ?>    	
-                     <?php echo $row['s_name']; ?><br>
-                     <?php echo $row['c_name']; ?><br>
-                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><br><!--MSK-00131-Saturday-->
+                     <span style="color:red">Subject Name</span>: <?php echo $row['s_name']; ?><br>
+                     <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+                     <a href="#" onClick="showModal2(this)" class="btn btn-info btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>" data-toggle="modal">Edit</a><!--MSK-00131-Saturday-->
                      <!--MSK-00150-Saturday--><a href="#" class="confirm-delete btn btn-danger btn-xs" data-id="<?php echo $row['ett_id']; ?>,<?php echo $grade_id; ?>,<?php echo $exam_id; ?>">Delete</a><br>
                      <?php } // end of the while loop 7#   ?>
                   </td>

@@ -21,7 +21,22 @@ if(!isset($_SERVER['HTTP_REFERER'])){
      min-width:180px;
 }
 
+#timetable1 td, #timetable1 th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+#timetable1 tr:nth-child(even){background-color: #f2f2f2;}
+#timetable1 tr:hover {background-color: #ddd;}
+#timetable1 th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #ffffcc;
+  color: black;
+}
 </style>
+
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -46,8 +61,9 @@ if(!isset($_SERVER['HTTP_REFERER'])){
                         <h3 class="box-title">My Timetable </h3>
                     </div><!-- /.box-header -->
                     <div class="box-body table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead style="color:white; background-color:#666;">
+                        <table id="timetable1">
+                            <thead>
+								<th class="col-md-1">Date</th>
                                 <th class="col-md-1">Time</th>
                                 <th class="col-md-1">Sunday</th>
                                 <th class="col-md-1">Monday</th>
@@ -83,11 +99,13 @@ while($row2=mysqli_fetch_assoc($result2)){
 	$t_id=$row2['t_id'];
 	
 	$sql3="SELECT 
-           DISTINCT start_time,end_time
+           id, start_time,end_time,time_date
 	       FROM
   		      timetable
 	       WHERE
   		      grade_id='$g_id' AND subject_id='$s_id' AND teacher_id='$t_id'  
+			GROUP By
+			start_time
 	       ORDER BY
   		      start_time";
 	
@@ -98,15 +116,16 @@ while($row2=mysqli_fetch_assoc($result2)){
 		
 ?>    
                  	<tr>
-                    	<th  style="color:white; background-color:#666;">
+					 <td><?php echo $row3['time_date'];?> </td>
+                    	<td >
                         	<?php echo $s_time." - ".$e_time; ?>		
                             
-                        </th>
-                        <td bgcolor="#d74340" style="color:white;">
+                        </td>
+                        <td >
 <?php 
 include_once('../controller/config.php');
 
-$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name
+$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name,timetable.meeting_link as t_link
       from timetable
 	  inner join subject
 	  on timetable.subject_id=subject.id
@@ -122,18 +141,22 @@ if (mysqli_num_rows($result) > 0) {
 		
 ?>    	
                       
-					   		<?php echo $row['s_name']; ?><br>
-							<?php echo $row['t_name']; ?><br>
-                            <?php echo $row['c_name']; ?><br>
+					  <span style="color:red">Subject Name</span>:<?php echo $row['s_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Teacher Name</span>:<?php echo $row['t_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Meeting link: </span> <a href="<?php echo $row['t_link']; ?>" target="_blank"><?php echo 'Meeting link:'. $row['t_link']; ?></a><br>
                        	
 <?php } } ?>
 	
 						</td>
-						 <td bgcolor="#d7cb40" style="color:white;">
+						 <td >
 <?php 
 include_once('../controller/config.php');
 	
-$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name
+$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name,timetable.meeting_link as t_link
       from timetable
 	  inner join subject
 	  on timetable.subject_id=subject.id
@@ -147,17 +170,21 @@ $result=mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) > 0) { 
 	while($row=mysqli_fetch_assoc($result)){ 
 ?>    	
-							<?php echo $row['s_name']; ?><br>
-							<?php echo $row['t_name']; ?><br>
-                            <?php echo $row['c_name']; ?><br>
+							<span style="color:red">Subject Name</span>:<?php echo $row['s_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Teacher Name</span>:<?php echo $row['t_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Meeting link: </span> <a href="<?php echo $row['t_link']; ?>" target="_blank"><?php echo 'Meeting link:'. $row['t_link']; ?></a><br>
                             
 <?php } } ?>
 						</td>
-						<td bgcolor="#40b9d7" style="color:white;">
+						<td >
 <?php 
 include_once('../controller/config.php');
 	
-$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name
+$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name,timetable.meeting_link as t_link
       from timetable
 	  inner join subject
 	  on timetable.subject_id=subject.id
@@ -171,18 +198,22 @@ $result=mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) > 0) { 
 	while($row=mysqli_fetch_assoc($result)){ 
 ?>    	
-							<?php echo $row['s_name']; ?><br>
-							<?php echo $row['t_name']; ?><br>
-                        	<?php echo $row['c_name']; ?><br>
+					  <span style="color:red">Subject Name</span>:<?php echo $row['s_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Teacher Name</span>:<?php echo $row['t_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Meeting link: </span> <a href="<?php echo $row['t_link']; ?>" target="_blank"><?php echo 'Meeting link:'. $row['t_link']; ?></a><br>
                         	
                     
 <?php  } } ?>
     					</td>
-						<td bgcolor="#f39037" style="color:white;">
+						<td >
 <?php 
 include_once('../controller/config.php');
 	
-$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name
+$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name,timetable.meeting_link as t_link
       from timetable
 	  inner join subject
 	  on timetable.subject_id=subject.id
@@ -196,19 +227,23 @@ $result=mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) > 0) { 
 	while($row=mysqli_fetch_assoc($result)){ 
 ?>    	
-							<?php echo $row['s_name']; ?><br>
-							<?php echo $row['t_name']; ?><br>
-                            <?php echo $row['c_name']; ?><br>
+					  <span style="color:red">Subject Name</span>:<?php echo $row['s_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Teacher Name</span>:<?php echo $row['t_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Meeting link: </span> <a href="<?php echo $row['t_link']; ?>" target="_blank"><?php echo 'Meeting link:'. $row['t_link']; ?></a><br>
                             
                      	
 <?php } } ?>
     					</td>
-						<td bgcolor="#7e5c3e" style="color:white;">
+						<td >
                         
 <?php 
 include_once('../controller/config.php');
 	
-$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name
+$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name,timetable.meeting_link as t_link
       from timetable
 	  inner join subject
 	  on timetable.subject_id=subject.id
@@ -222,18 +257,22 @@ $result=mysqli_query($conn,$sql);
 if (mysqli_num_rows($result) > 0) { 
 	while($row=mysqli_fetch_assoc($result)){ 
 ?>    	
-							<?php echo $row['s_name']; ?><br>
-							<?php echo $row['t_name']; ?><br>
-                            <?php echo $row['c_name']; ?><br>
+					  <span style="color:red">Subject Name</span>:<?php echo $row['s_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Teacher Name</span>:<?php echo $row['t_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Meeting link: </span> <a href="<?php echo $row['t_link']; ?>" target="_blank"><?php echo 'Meeting link:'. $row['t_link']; ?></a><br>
                            
                      	
 <?php } } ?>
     					</td>
-						<td bgcolor="#3e447e" style="color:white;">
+						<td>
 <?php 
 include_once('../controller/config.php');
 	
-$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name
+$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name,timetable.meeting_link as t_link
       from timetable
 	  inner join subject
 	  on timetable.subject_id=subject.id
@@ -248,17 +287,21 @@ if (mysqli_num_rows($result) > 0) {
 	while($row=mysqli_fetch_assoc($result)){
 ?>    	
                      	
-							<?php echo $row['s_name']; ?><br>
-							<?php echo $row['t_name']; ?><br>
-                            <?php echo $row['c_name']; ?><br>
+					  <span style="color:red">Subject Name</span>:<?php echo $row['s_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Teacher Name</span>:<?php echo $row['t_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Meeting link: </span> <a href="<?php echo $row['t_link']; ?>" target="_blank"><?php echo 'Meeting link:'. $row['t_link']; ?></a><br>
                             
 <?php  } } ?>
     					</td>
-						 <td bgcolor="#638e3d" style="color:white;">
+						 <td>
 <?php 
 include_once('../controller/config.php');
 	
-$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name
+$sql="select subject.name as s_name,teacher.i_name as t_name,class_room.name as c_name,timetable.meeting_link as t_link
       from timetable
 	  inner join subject
 	  on timetable.subject_id=subject.id
@@ -273,12 +316,17 @@ if (mysqli_num_rows($result) > 0) {
 	while($row=mysqli_fetch_assoc($result)){
 	
 ?>    	
-							<?php echo $row['s_name']; ?><br>
-						    <?php echo $row['t_name']; ?><br>
-                            <?php echo $row['c_name']; ?><br>
+					  <span style="color:red">Subject Name</span>:<?php echo $row['s_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Teacher Name</span>:<?php echo $row['t_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Class Name</span>: <?php echo $row['c_name']; ?><br>
+					  <hr/>
+					  <span style="color:red">Meeting link: </span> <a href="<?php echo $row['t_link']; ?>" target="_blank"><?php echo 'Meeting link:'. $row['t_link']; ?></a><br>
                             
 <?php } } ?>
     					</td>
+				
 					</tr>
 <?php } } ?>
 					

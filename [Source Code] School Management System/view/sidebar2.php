@@ -58,6 +58,19 @@ $image=$row['image_name'];
         </li>
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-font"></i>
+            <span>Activities</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="assignments.php"><i class="fa fa-circle-o"></i> Assignment</a></li>
+            <li><a href="notes.php"><i class="fa fa-circle-o"></i> Notes</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-calendar-plus-o"></i>
             <span>Timetable</span>
             <span class="pull-right-container">

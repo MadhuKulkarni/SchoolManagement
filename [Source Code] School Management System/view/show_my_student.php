@@ -9,6 +9,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 	<div class="box">
     	<div class="box-header">
         	<h3 class="box-title">My Student</h3>
+			<button href="#uploadStudents" class="btn btn-primary pull-right" data-toggle="modal">Upload Marks</button>
         </div><!-- /.box-header -->
         <div class="box-body table-responsive">
         	<table id="example1" class="table table-bordered table-striped">
@@ -79,3 +80,48 @@ if(mysqli_num_rows($result3) > 0){
      	</div><!-- /.box-body -->           
 	</div><!-- /.box-->
 </div>
+<!--Modal upload CSV-->
+<div class="modal msk-fade" style="display: none;" id="uploadStudents" tabindex="-1" role="dialog" aria-labelledby="insert_alert1" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;">
+   <div class="modal-dialog">
+      <!--modal-dialog -->  
+      <div class="container col-lg-12 ">
+         <!--modal-content --> 
+         <div class="row">
+            <div class="panel panel-info">
+               <!--panel --> 
+               <div class="panel-heading">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  <h3 class="panel-title" id="hname"></h3>
+               </div>
+               <div class="panel-body">
+                  <!--panel-body -->
+                  <div class="row">
+                     <div class=" col-md-9">
+                        <form action="" method="post" enctype="multipart/form-data">
+                           <div class="input-group">
+                              <div class="custom-file">
+                                 <input type="file" class="custom-file-input" id="customFileInput" aria-describedby="customFileInput" name="file">
+                                 <label class="custom-file-label" for="customFileInput">Select CSV file</label>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <!--/.panel-body -->
+               <div class="panel-footer">
+                  <div class="input-group-append">
+                     <input type="submit" name="submit" value="Upload" id="upload-csv" class="btn btn-primary">
+                  </div>
+                  <div id="upload-status"></div>
+               </div>
+            </div>
+            <!--/. panel--> 
+         </div>
+         <!--/.row --> 
+      </div>
+      <!--/.modal-content -->
+   </div>
+   <!--/.modal-dialog -->
+</div>
+<!--modal upload CSV end-->
