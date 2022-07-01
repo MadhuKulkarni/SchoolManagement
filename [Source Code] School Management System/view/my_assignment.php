@@ -148,7 +148,7 @@
             
                echo '<div class="row" id="table1">';
                  echo '<div class="box-header with-border">';
-                   echo  '<h3 class="box-title">Add Assignment</h3>';
+                   echo  '<h3 class="box-title">Assignments</h3>';
                  echo '</div>';
                $sql= "SELECT timetable.time_date,timetable.start_time,timetable.end_time,timetable.assignment,
                subject.name,timetable.id            
@@ -171,7 +171,7 @@
                      </thead>";
                echo "<tbody>";
                while($row=mysqli_fetch_assoc($result2)){
-               $assignment = '<a href="'.$row['assignment'].'" target="_blank">View Assignment</a>';
+				$assignment = ($row['assignment'] == '') ? 'Not available': '<a href="'.$row['assignment'].'" target="_blank">View Assignment</a>';
                   echo "<tr>
                      <td>{$row['time_date']}</td>
                      <td>{$row['name']}</td>
@@ -189,3 +189,5 @@
             ?>
 </div>  
 <?php include_once('footer.php');?>
+
+<!-- condition ? (do if true here) : (do if false here) -->

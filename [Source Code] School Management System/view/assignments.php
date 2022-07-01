@@ -142,57 +142,55 @@
    </section>
    <!-- End of form section -->
    <!-- table for view all records-->
-
-         <!--MSK-000112--> 
-         <?php 
-            if($grade!=='' && $subject!=''){
-              echo '<section  class="content-header" style="background-color:white; width:63%;border-top: 3px solid #3c8dbc;">';
-            
-               echo '<div class="row" id="table1">';
-                 echo '<div class="box-header with-border">';
-                   echo  '<h3 class="box-title">Add Assignment</h3>';
-                 echo '</div>';
-               $sql= "SELECT timetable.time_date,timetable.start_time,timetable.end_time,timetable.assignment,
-               subject.name,timetable.id            
-               from timetable      
-               inner join subject
-               on subject.id=timetable.subject_id
-               where timetable.grade_id =".$grade." and timetable.subject_id = ".$subject;
-             
-               $result2=mysqli_query($conn,$sql);
-              
-               echo '<div class="box-body table-responsive">';
-               echo "<table class='table table-bordered table-striped' style='width:80% ;'>";
-               echo "<thead> 
-
-                     <th>Date</th>               
-                     <th>Subject Name</th>
-                     <th>Start Time</th>
-                     <th>End Time</th>
-                     <th>Assignment</th>       
-                     </thead>";
-               echo "<tbody>";
-               while($row=mysqli_fetch_assoc($result2)){
-               $assignment = ($row['assignment'] == '') ? '<input type="file" class="fileAjax" name="fileAjax"/ style="width:200px;"><button class="uploadAssignment">Submit</button><span class="status"></span>': '<a href="'.$row['assignment'].'" target="_blank">View Assignment</a>';
-                  echo "<tr>
-                     <td>{$row['time_date']}</td>
-                     <td>{$row['name']}</td>
-                     <td>{$row['start_time']}</td>
-                     <td>{$row['end_time']}</td>
-                     <td style='display: flex' data-id='". $row['id']. "'>{$assignment}</td>
-                  </tr>";                     
-               }
-               echo "</tbody>";
-               echo "</table>";
-               echo '</div>';   
-               echo '</div>';
-               echo '</section> ';
-            }   
-            ?>
-     
+   <!--MSK-000112--> 
+   <?php 
+      if($grade!=='' && $subject!=''){
+        echo '<section  class="content-header" style="background-color:white; width:63%;border-top: 3px solid #3c8dbc;">';
+      
+         echo '<div class="row" id="table1">';
+           echo '<div class="box-header with-border">';
+             echo  '<h3 class="box-title">Add Assignments</h3>';
+           echo '</div>';
+         $sql= "SELECT timetable.time_date,timetable.start_time,timetable.end_time,timetable.assignment,
+         subject.name,timetable.id            
+         from timetable      
+         inner join subject
+         on subject.id=timetable.subject_id
+         where timetable.grade_id =".$grade." and timetable.subject_id = ".$subject;
+       
+         $result2=mysqli_query($conn,$sql);
+        
+         echo '<div class="box-body table-responsive">';
+         echo "<table class='table table-bordered table-striped' style='width:80% ;'>";
+         echo "<thead> 
+      
+               <th>Date</th>               
+               <th>Subject Name</th>
+               <th>Start Time</th>
+               <th>End Time</th>
+               <th>Assignment</th>       
+               </thead>";
+         echo "<tbody>";
+         while($row=mysqli_fetch_assoc($result2)){
+         $assignment = ($row['assignment'] == '') ? '<input type="file" class="fileAjax" name="fileAjax"/ style="width:200px;"><button class="uploadAssignment">Submit</button><span class="status"></span>': '<a href="'.$row['assignment'].'" target="_blank">View Assignment</a>';
+            echo "<tr>
+               <td>{$row['time_date']}</td>
+               <td>{$row['name']}</td>
+               <td>{$row['start_time']}</td>
+               <td>{$row['end_time']}</td>
+               <td style='display: flex' data-id='". $row['id']. "'>{$assignment}</td>
+            </tr>";                     
+         }
+         echo "</tbody>";
+         echo "</table>";
+         echo '</div>';   
+         echo '</div>';
+         echo '</section> ';
+      }   
+      ?>
 </div>
 <!-- " sdfsdfsdf= '".$dfdf."' sfddsfsdf"
-' sdfsdfsdf= "'.$dfdf.'" sfddsfsdf' -->
+   ' sdfsdfsdf= "'.$dfdf.'" sfddsfsdf' -->
 <?php include_once('footer.php');?>
 <script>
    $(document).ready(function(){
@@ -202,24 +200,24 @@
          let id = $(this).parent().attr('data-id');
          let file = $(this).prev();
          let status = $(this).next();
-
+   
          status.text('Uploading...');
-
+   
          // Get the files from the form input
          let files = file[0].files;
-
+   
          // Create a FormData object
          let formData = new FormData();
-
+   
          // Select only the first file from the input array
          let myFile = files[0];
          
          // Add the file to the AJAX request
          formData.append('fileAjax', myFile, myFile.name);
-
+   
          // Add id to the AJAX request
          formData.append('id', id);
-
+   
          $.ajax({
             url: 'uploadFile.php',
             type: 'POST',
