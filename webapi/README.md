@@ -15,7 +15,7 @@ you can Download SLIM Framework from [Here](https://github.com/slimphp/Slim).
 * Postman to test our API: https://www.getpostman.com/apps
 
 # MYSQL
- use book_db database
+ use school_mgmt_api database
  
 ### Create database and tables
 ```sql
