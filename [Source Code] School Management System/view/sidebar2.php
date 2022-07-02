@@ -39,9 +39,22 @@ $image=$row['image_name'];
           </a>
         </li>
          <li>
-          <a href="my_student.php">
+          <!--<a href="my_student.php">
             <i class="fa fa-graduation-cap"></i> <span>My Class Management</span>
           </a>
+        </li>-->
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-graduation-cap"></i>
+            <span>My Class Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="my_student.php"><i class="fa fa-circle-o"></i> Add Student</a></li>
+            <li><a href="my_parental_update.php"><i class="fa fa-circle-o"></i> Parental Update </a></li>
+          </ul>
         </li>
         <li class="treeview">
           <a href="#">
