@@ -4,4 +4,4 @@ define('TYPE_CNX', 'mysql'); //write your host
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'book_db');
+define('DB_NAME', 'school_mgmt_api');
