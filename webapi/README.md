@@ -32,8 +32,6 @@ CREATE TABLE IF NOT EXISTS `book` (
 
 First you need to create a PHP Project. You have to create it in the root directory of your server like it will be htdocs folder in case of xampp and www in case of wamp.
 
-In my case **C:\wamp\www\BookSlimAPI**.
-
 ## Project structure
 
 ![capture 1](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/1.PNG)
@@ -60,19 +58,10 @@ In my case **C:\wamp\www\BookSlimAPI**.
 
 * http://localhost/BookSlimAPI/api/book
 
-![capture 2](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/2.PNG)
-
-
-
 * http://localhost/BookSlimAPI/api/book/{book_id}
-
-![capture 3](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/3.PNG)
-
-
 
 * http://localhost/BookSlimAPI/api/book
 
-![capture 4](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/4.PNG)
 
 
 
