@@ -47,24 +47,14 @@ First you need to create a PHP Project. You have to create it in the root direct
 
 | Description        | Method |Route  | Params
 | ------------- |:-------------:| -----|-----|
-| Creating a new book    | POST |http://localhost/BookSlimAPI/api/book |title, author, price |
-|Listing all books      | GET      |  http://localhost/BookSlimAPI/api/books | none
-| Listing single book | GET     |   http://localhost/BookSlimAPI/api/book/{book_id} | none
-| Deleting a book |DELETE      |   http://localhost/BookSlimAPI/api/book/{book_id} | none
-| Updating a book | PUT     |   http://localhost/BookSlimAPI/api/book/{book_id} | id, title, author, price|
+| Creating a new book    | POST |http://localhost/webapi/api/book |title, author, price |
+|Listing all books      | GET      |  http://localhost/webapi/api/books | none
+| Listing single book | GET     |   http://localhost/webapi/api/book/{book_id} | none
+| Deleting a book |DELETE      |   http://localhost/webapi/api/book/{book_id} | none
+| Updating a book | PUT     |   http://localhost/webapi/api/book/{book_id} | id, title, author, price|
 
 
 
-
-* http://localhost/BookSlimAPI/api/book
-
-* http://localhost/BookSlimAPI/api/book/{book_id}
-
-* http://localhost/BookSlimAPI/api/book
-
-
-
-
-* http://localhost/BookSlimAPI/api/book/1
+* http://localhost/webapi/api/book/1
 
 ![capture 5](https://github.com/anicetkeric/BookSlimAPI/blob/master/screen/5.PNG)
