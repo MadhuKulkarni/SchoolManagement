@@ -1,4 +1,5 @@
 <?php
+
    if(!isset($_SERVER['HTTP_REFERER'])){
        // redirect them to your desired location
        header('location:../index.php');
@@ -10,16 +11,17 @@
       <div class="box-header">
          <h3 class="box-title">My Student</h3>
          <button href="#uploadStudents" class="btn btn-primary pull-right" data-toggle="modal">Upload Students</button>
+
       </div>
-      <!-- /.box-header -->
-      <div class="box-body table-responsive">
-         <table id="example1" class="table table-bordered table-striped">
+       <div class="box-body table-responsive">
+        <table id="example1" class="table table-bordered table-striped">
             <thead>
-               <th class="col-md-1">ID</th>
-               <th class="col-md-4">Name</th>
-               <th class="col-md-7">Action</th>
+                <th class="col-md-1">ID</th>
+                <th class="col-md-4">Name</th>
+                <th class="col-md-7">Action</th>
             </thead>
             <tbody>
+
                <?php
                   include_once('../controller/config.php');
                   $grade_id=$_GET['grade'];
@@ -111,4 +113,5 @@
    <!--/.modal-dialog -->
 </div>
 <!--modal upload CSV end-->
+
 

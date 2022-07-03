@@ -68,6 +68,8 @@ if(isset($_arguments["do"])&& ($_arguments["do"] != "")){
 		$page = "model/update_parents_profile.php";
 	}else if(($_arguments["do"] == "add_group_message")){//MSK-000143-add_group_message
 		$page = "model/add_group_message.php";
+	}else if(($_arguments["do"] == "add_class_student")){//MSK-000143-add_group_message
+		$page = "model/add_student2.php";
 	}																				
 }else{
 	header("Location: view/login.php");
