@@ -137,162 +137,163 @@ margin:0;
             <li><a href="#">My Attendance</a></li>
     	</ol>
 	</section>
- <script>
+	
+<script>
 
 var current_day_no;
 var status;
 var calendar_month_year;
-function show_calendar(){
+// function show_calendar(){
 	
-	var status = $('#status5').val().split(',');
-	var date_no2 = $('#date_no2').val().split(',');
-	var count5 = date_no2.length;
+// 	var status = $('#status5').val().split(',');
+// 	var date_no2 = $('#date_no2').val().split(',');
+// 	var count5 = date_no2.length;
 	
-	var d = new Date();    //new Date('2017','08','25');
-	var month_name = ['January','February','March','April','May','June','July','August','September','Octomber','November','December'];	
+// 	var d = new Date();    //new Date('2017','08','25');
+// 	var month_name = ['January','February','March','April','May','June','July','August','September','Octomber','November','December'];	
 		
 		
-	var month = d.getMonth(); //0-11
-	var year = d.getFullYear(); //2017 
-	var current_date = d.getDate();
-	var first_date = month_name[month] + " " + 1 + " " + year;
+// 	var month = d.getMonth(); //0-11
+// 	var year = d.getFullYear(); //2017 
+// 	var current_date = d.getDate();
+// 	var first_date = month_name[month] + " " + 1 + " " + year;
 		
-	// August 31 2017
+// 	// August 31 2017
 		
-	var tmp = new Date(first_date).toDateString();
-	// Tue Aug 01 2017...
+// 	var tmp = new Date(first_date).toDateString();
+// 	// Tue Aug 01 2017...
 		
-	var first_day = tmp.substring(0,3); //Thu
-	var day_name = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-	var day_no = day_name.indexOf(first_day);  //4
-	var days = new Date(year, month+1, 0).getDate(); //31
-	// Thu Aug 31 2017...
+// 	var first_day = tmp.substring(0,3); //Thu
+// 	var day_name = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+// 	var day_no = day_name.indexOf(first_day);  //4
+// 	var days = new Date(year, month+1, 0).getDate(); //31
+// 	// Thu Aug 31 2017...
 		
-	var calendar = get_calendar(day_no,days);
+// 	var calendar = get_calendar(day_no,days);
 		
-	document.getElementById("calendar_month_year").innerHTML = month_name[month]+" "+year;
-	document.getElementById("calendar_dates").appendChild(calendar);
+// 	document.getElementById("calendar_month_year").innerHTML = month_name[month]+" "+year;
+// 	document.getElementById("calendar_dates").appendChild(calendar);
 				
-	for(var i=0; i<count5; i++){
+// 	for(var i=0; i<count5; i++){
 		
-		var d_no = parseInt(date_no2[i], 10);
+// 		var d_no = parseInt(date_no2[i], 10);
 			
-		if(status[i] == 'Present'){
+// 		if(status[i] == 'Present'){
 	
-			$("#td_"+d_no).css("background-color", "#00FF66");
+// 			$("#td_"+d_no).css("background-color", "#00FF66");
 				
-		}
+// 		}
 			
-		if(status[i] == 'Absent'){
+// 		if(status[i] == 'Absent'){
 			
-			$("#td_"+d_no).css("background-color", "#FF0033");
+// 			$("#td_"+d_no).css("background-color", "#FF0033");
 		
-		}
+// 		}
 	
-	}
+// 	}
 				
-};
+// };
 
-function get_calendar(day_no,days){
+// function get_calendar(day_no,days){
 	
 	
-	var table = document.createElement('table');
-	var tr = document.createElement('tr');
+// 	var table = document.createElement('table');
+// 	var tr = document.createElement('tr');
 
-	table.className = 'cal-table';
+// 	table.className = 'cal-table';
 	
-	// row for the day letters
-	for(var c=0; c<=6; c++){
+// 	// row for the day letters
+// 	for(var c=0; c<=6; c++){
 		
-		var th = document.createElement('th');
-		th.innerHTML =  ['S','M','T','W','T','F','S'][c];
-		tr.appendChild(th);
-		th.className = "tHead";
+// 		var th = document.createElement('th');
+// 		th.innerHTML =  ['S','M','T','W','T','F','S'][c];
+// 		tr.appendChild(th);
+// 		th.className = "tHead";
 		
 		
-	}
+// 	}
 	
-	table.appendChild(tr);
+// 	table.appendChild(tr);
 	
-	//create 2nd row
+// 	//create 2nd row
 	
-	tr = document.createElement('tr');
+// 	tr = document.createElement('tr');
 	
-	var c;
-	for(c=0; c<=6; c++){
-		if(c== day_no){
-			break;
-		}
-		var td = document.createElement('td');
-		td.innerHTML = "";
-		tr.appendChild(td);
-		td.className = "td_no_number";
-		tr.className = 'cal-tr';
-	}
+// 	var c;
+// 	for(c=0; c<=6; c++){
+// 		if(c== day_no){
+// 			break;
+// 		}
+// 		var td = document.createElement('td');
+// 		td.innerHTML = "";
+// 		tr.appendChild(td);
+// 		td.className = "td_no_number";
+// 		tr.className = 'cal-tr';
+// 	}
 	
-	var count = 1;
-	for(; c<=6; c++){
+// 	var count = 1;
+// 	for(; c<=6; c++){
 		
-		var td = document.createElement('td');
-		td.id = "td_"+count;
-		td.className = 'cal-number-td';
-		tr.appendChild(td);
-		tr.className = 'cal-tr';
+// 		var td = document.createElement('td');
+// 		td.id = "td_"+count;
+// 		td.className = 'cal-number-td';
+// 		tr.appendChild(td);
+// 		tr.className = 'cal-tr';
 		
-		var h5 = document.createElement('h5');
-		h5.id="h5_"+count;
-		h5.className = 'h5';
-		td.appendChild(h5);
-		h5.innerHTML = count;
-		count++;
+// 		var h5 = document.createElement('h5');
+// 		h5.id="h5_"+count;
+// 		h5.className = 'h5';
+// 		td.appendChild(h5);
+// 		h5.innerHTML = count;
+// 		count++;
 		
-	}
-	table.appendChild(tr);
+// 	}
+// 	table.appendChild(tr);
 	
-	//rest of the date rows
-	;
-	for(var r=3; r<=7; r++){
-		tr = document.createElement('tr');
-		for(var c=0; c<=6; c++){
-			if(count > days){
+// 	//rest of the date rows
+// 	;
+// 	for(var r=3; r<=7; r++){
+// 		tr = document.createElement('tr');
+// 		for(var c=0; c<=6; c++){
+// 			if(count > days){
 				
-				for(; c<=6; c++){
+// 				for(; c<=6; c++){
 					
-					var td = document.createElement('td');
-					td.innerHTML = "";
-					tr.appendChild(td);
-					td.className = "td_no_number";
-					tr.className = 'cal-tr';
+// 					var td = document.createElement('td');
+// 					td.innerHTML = "";
+// 					tr.appendChild(td);
+// 					td.className = "td_no_number";
+// 					tr.className = 'cal-tr';
 				
-				}
-				table.appendChild(tr);
-				return table;
-			}
+// 				}
+// 				table.appendChild(tr);
+// 				return table;
+// 			}
 			
-			var td = document.createElement('td');
-			//td.innerHTML = count;
-			td.id = "td_"+count;
-			//td.style.padding = 0;
-			td.className = 'cal-number-td';
+// 			var td = document.createElement('td');
+// 			//td.innerHTML = count;
+// 			td.id = "td_"+count;
+// 			//td.style.padding = 0;
+// 			td.className = 'cal-number-td';
 			
-			tr.appendChild(td);
+// 			tr.appendChild(td);
 			
-			var h5 = document.createElement('h5');
-			h5.className = 'h5';
-			td.appendChild(h5);
-			h5.innerHTML = count;
-			count++;
-			tr.className = 'cal-tr';
+// 			var h5 = document.createElement('h5');
+// 			h5.className = 'h5';
+// 			td.appendChild(h5);
+// 			h5.innerHTML = count;
+// 			count++;
+// 			tr.className = 'cal-tr';
 			
-		}
-		table.appendChild(tr);
+// 		}
+// 		table.appendChild(tr);
 		
 		
-	}
+// 	}
 	
-};	
+// };	
 
-</script> 
+ </script> 
     
     <!-- table for view all records -->     
 	<section class="content" > <!-- Start of table section -->
@@ -300,82 +301,71 @@ function get_calendar(day_no,days){
             <div class="col-md-12">
             	<div class="box">
                 	<div class="box-header">
-                    	<h3 class="box-title">My Attendance in this Month</h3>
+                    	<h3 class="box-title">My Attendance</h3>
                 	</div><!-- /.box-header -->
                     <div class="box-body table-responsive">
                          <div class="row">
                             <div class=" col-md-7">
                                 <table id="example1" class="table table-bordered table-striped">
-                                	<thead>
+                                	<thead style="background-color:lightgrey	;">
                                     	<th class="col-md-1">ID</th>
+                                    	<th class="col-md-1">Subject</th>
                                         <th class="col-md-2">Date</th>
                                         <th class="col-md-1">Month</th>
                                         <th class="col-md-1">Year</th>
                                         <th class="col-md-1">Status</th>
-                                        <th class="col-md-1">Intime</th>
-                                        <th class="col-md-1">Outtime</th>
+
                                     </thead>
                                    	<tbody>
 <?php
 include_once('../controller/config.php');
 $index=$_SESSION["index_number"];
 
-$current_year=date('Y');
-$current_month=date('F');
+// $current_year=date('Y');
+// $current_month=date('F');
 
-$prefix="";
-$prefix1="";
-$status5="";
-$date_no2="";
+// $prefix="";
+// $prefix1="";
+// $status5="";
+// $date_no2="";
 
-$sql="select * from student_attendance where index_number='$index' and (_status1='intime' or _status1='') and year='$current_year' and month='$current_month'";
+// $sql="select * from student_attendance where index_number='$index' and (_status1='intime' or _status1='') and year='$current_year' and month='$current_month'";
+$sql="select full_name, index_number, subject, date, time, studid, attendance from student JOIN my_attendance ON student.id = my_attendance.studid where index_number=$index";
+
+// print_r($sql);
+// exit;
 
 $result=mysqli_query($conn,$sql);
 $count = 0;
+$color;
 if(mysqli_num_rows($result) > 0) {
 	while($row=mysqli_fetch_assoc($result)){
+
+		// var_dump(($row["attendance"])) ;
+		if ($row["attendance"]=="Present") {
+			$color = "#00FF66";
+		  } else {
+			$color = "#FF0033";
+		  }
+		
+		$timestamp = strtotime("$row[date]");
+
+		$month = date("M", $timestamp);
+		$year = date("Y", $timestamp);
+		
 		$count++;
-		$status1=$row['_status1'];
-		$status2=$row['_status2'];
-		$date=$row['date'];
-		
-		$date_no =(explode('-',$date,4));
-		$date_no1 =$date_no[2];
-		$intime=$row['time'];
-		
-		if($status1='intime'){
-			$sql2="select * from student_attendance where index_number='$index' and _status1='outtime' and date='$date'";
-			$result2=mysqli_query($conn,$sql2);
-			$row2=mysqli_fetch_assoc($result2);
-			$outtime=$row2['time'];
-		}
-		if($status2=='Absent'){
-			$intime="A";
-			$outtime="A";
-		}
-		
-		if($status2=='Present'){
-			
-		}
-		
-		$status5.=$prefix.$status2;
-		$prefix=',';
-		
-		$date_no2.=$prefix1.$date_no1;
-		$prefix1=',';
-				
-?>   
+		// echo "<pre>";
+		// echo print_r($row);
+		// echo "</pre>";			
+?>
                                     	<tr>
                                             <td><?php echo $count; ?></td>
-                                            
-                                            <td id="td_date_<?php echo $count; ?>"><?php echo $date; ?></td>
-                       <!--MSK-000115-td2--><td id="td_month_<?php echo $count; ?>"><?php echo $row['month']; ?></td>
-                       <!--MSK-000115-td1--><td id="td_year_<?php echo $count; ?>"><?php echo $row['year']; ?></td>
-                       <!--MSK-000115-td3--><td id="td_status_<?php echo $count; ?>"><?php echo $row['_status2']; ?></td>
-                       <!--MSK-000115-td4--><td id="td_paid_<?php echo $count; ?>"><?php echo $intime; ?></td>
-                                            <td id="td_date_<?php echo $count; ?>"><?php echo $outtime; ?></td>
-                                        
-                                    	</tr>
+											<td><?php echo $row["subject"]; ?></td>
+                                            <td><?php echo $row["date"]; ?></td>		
+                                            <td><?php echo $month; ?></td>		
+                                            <td><?php echo $year; ?></td>		
+                       <!--MSK-000115-td2--><td><div style="background-color:<?php echo $color ?>; width:15px; height:15px; float:left; margin-right:2px;"></td>
+               							</tr>
 <?php } ?>
                         			</tbody>
                     			</table>
@@ -387,13 +377,12 @@ if(mysqli_num_rows($result) > 0) {
                                 <div id="calendar_dates">
                                 <input type="hidden" id="date_no2" value="<?php echo $date_no2; ?>">
                                 <input type="hidden" id="status5" value="<?php echo $status5; ?>">  
-                            	</div><br><br>
                             <div style="float:left; width:100px; ">
                                 	<div style="background-color:#FF0033; width:15px; height:15px; float:left; margin-right:2px;"> </div> <span style="text-align:left;">  - Absent </span><br> 
                                     <div style="background-color:#00FF66; width:15px; height:15px; float:left; margin-right:2px;"> </div> <span style="text-align:left;">  - Present </span><br> 
-                                    <div style="background-color:#FFCC33; width:15px; height:15px; float:left; margin-right:2px;"> </div> <span style="text-align:left;">  - Not Held  </span><br> 
+                                    <!-- <div style="background-color:#FFCC33; width:15px; height:15px; float:left; margin-right:2px;"> </div> <span style="text-align:left;">  - Not Held  </span><br>  -->
                             </div>
-<?php  }echo '<script>','show_calendar()','</script>'; ?>                            
+<?php  } ?>                            
                     	</div>
                 	</div><!-- /.box-body -->           
             	</div><!-- /.box-->

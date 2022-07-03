@@ -1,45 +1,55 @@
 <?php
     include_once('../controller/config.php');
    
-    $dataVal = $_POST["data"];
+    
+    
     // echo "<pre>";
     // print_r($_POST["data"]);
     // echo "</pre>";
     // exit;
-    
-try{
-        foreach($dataVal as $val) {
-            $studId = $val['studId'];
-            $subject = $val['subject'];
-            $date = $val['date'];
-            $time = $val['time'];
-            $attendance = $val['attendance'];
+    if(isset($_POST["data"])){
+        $dataVal = $_POST["data"];
+        try{
+                foreach($dataVal as $val) {
+                    $classId = $val['classId'];
+                    $studId = $val['studId'];
+                    $subject = $val['subject'];
+                    $date = $val['date'];
+                    $time = $val['time'];
+                    $attendance = $val['attendance'];
+                    
+                    $month = date('F', strtotime($val['date']));
+                    $year = date('Y', strtotime($val['date']));
+                    
+                 
 
-        
-            $sql = "INSERT INTO my_attendance (studId, subject, date, time, attendance) VALUES( ".$studId.", '" . $subject . "', '" . $date . "', '" . $time . "', '" . $attendance . "')";
+                    $sql = "INSERT INTO my_attendance (classid, studId, subject, date, month, year, time, attendance) VALUES( ".$classId.", ".$studId.", '" . $subject . "', '" . $date . "', '" . $month . "', ".$year.", '" . $time . "', '" . $attendance . "')";
+
 
             
-            
-          
-            $response;
-       
-            if(!mysqli_query($conn, $sql)) {
-                // $response = 'Error inserting the duplicates';
-                $response = 'Error inserting the duplicates';
-                throw new Exception($response);
+                    if(!mysqli_query($conn, $sql)) {
+                        $response = 'Error: The same record is been submitted';
+                        throw new Exception($response);
+                    }
+                
+                }
+
+                $response = 'Attendance registered successfully';
+                
             }
         
-        }
+        catch(Exception $e){
+                $response = $e->getMessage();
+                
+            }
 
-        $response = 'Attendance registered successfully';
+            echo $response;
+    }else{
+        echo "Invalid Data!!!";
     }
-   
-    catch(Exception $e){
-        echo $response = $e->getMessage();
-    }
-   
+        
 
-    // echo $response;
+    // to do: in case of reattendance for the same duration update is required...
 ?>
 
 

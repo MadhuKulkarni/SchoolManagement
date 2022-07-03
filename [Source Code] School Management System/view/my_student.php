@@ -898,6 +898,8 @@ function showModal1(Viewform){
 
 </div>
 
+<!--
+
 <!-- //MSK-00122 modalSelectGrade -->      
     <div class="modal msk-fade" id="modalSelectGrade" tabindex="-1" role="dialog" aria-labelledby="modalSelectGrade" aria-hidden="true" data-backdrop="static" data-keyboard="false">  
 		<div class="modal-dialog"><!--modal-dialog -->  
@@ -933,7 +935,9 @@ if(mysqli_num_rows($result) > 0){
 			</div><!--./modal-content -->
 		</div><!--./modal-dialog --> 
 	</div><!--./modal--> 
-    
+ 
+
+-->   
     <!-- //MSK-xxxxx Modal-Upgrade Confirm Popup -->
 	<div class="modal msk-fade " id="upgradeConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   		<div class="modal-dialog">
@@ -1258,6 +1262,86 @@ window.addEventListener("popstate", function() {
   }
 }, false);
 }(window, location));
+
+
+<!--   /* load students on modal window */-->
+
+$('body').on('click', '.submitDetails', function(e){
+   e.preventDefault();
+   const sub= $('.subjects').val();
+   const time= $('.timeForSub').val();
+   const dt= $('.dateForSubs').val();
+
+   if(!(sub=='') && !(time=='') && !(dt=='')){
+      $('#table2').html("").css("color", "black");
+      $.ajax({
+          url:"load_student.php",    
+          type: "post",
+          success:function(result){ //result will have the _page contents
+            $('#table2').html(result);
+
+
+            $('.subjectVal').html(sub);
+            $('.timeVal').html(time);
+            $('.dateVal').html(dt);
+
+           
+          }
+      });
+   }else{
+      $('#table2').html("Please choose valid option!!!").css("color", "red");
+      
+   }
+   
+});
+
+
+  $('body').on('click', '.submitToDB', function(e){
+      e.preventDefault();
+      let rowdata=[];
+      $('#ex1 tr').each(function(i,row){
+         if(!i==0){
+            
+            /* console.log(row); */
+            /* var test = $(this).text();
+
+            var trimVal = test.trim().split("\n");
+            var trimRes = trimVal.map(val=> val.trim());
+            console.log(trimRes); */
+            /* rowdata.push(trimRes); */
+            let classId = $(this).find('td:nth-child(1)').attr('data-classid');
+            
+            let studId = $(this).find('td:nth-child(2)').attr('data-studid');
+            let subject = $(this).find('td:nth-child(3)').text();
+            let date = $(this).find('td:nth-child(4)').text();
+            let time = $(this).find('td:nth-child(5)').text();
+            let attendance = ($(this).find('td:nth-child(6)').find('input[type="checkbox"]').is(':checked')) ? 'Present' : 'Absent';
+            rowdata.push({classId:classId, studId:studId, subject:subject, date:date, time:time, attendance:attendance });
+            
+         }
+         
+      });
+      console.log(rowdata);
+               
+      $.ajax({
+            
+            url:"register_attendance.php",    
+            type: "post",
+            data:{data: rowdata},
+            success:function(response){ 
+               $('.attendance-status').text(response);
+               setTimeout(clearMsg, 4000);
+
+               function clearMsg(){
+                  $('.attendance-status').text('');
+               }
+              
+            }
+            
+      });
+});
+
+
 </script>
 	      
 </div><!-- /.content-wrapper -->  
