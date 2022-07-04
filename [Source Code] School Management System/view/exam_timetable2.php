@@ -232,6 +232,7 @@ function showModal(Insertform){
 					var subject = $('#subject').val();
 					var teacher = $('#teacher').val();	
 					var classroom = $('#classroom').val();
+				
 					var start_time = $('#start_time').val();	
 					var end_time = $('#end_time').val();	
 				
@@ -371,6 +372,7 @@ function showModal1(time){
 						var subject = $('#subject').val();
 						var teacher = $('#teacher').val();	
 						var classroom = $('#classroom').val();
+						var date = $('#date').val();
 						var start_time = $('#start_time').val();	
 						var end_time = $('#end_time').val();	
 					

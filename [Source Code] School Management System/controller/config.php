@@ -1,9 +1,9 @@
 <?php
 
 $servername = "localhost";
-$username   = "Enter Database Username";
-$password   = "Exter Database Password";
-$dbname     = "Enter Database Name";
+$username   = "root";
+$password   = "123";
+$dbname     = "final_school";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);

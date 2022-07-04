@@ -1,11 +1,13 @@
 <?php
-if(!isset($_SERVER['HTTP_REFERER'])){
-    // redirect them to your desired location
-    header('location:../index.php');
-    exit;
-}
-?>
+
+   if(!isset($_SERVER['HTTP_REFERER'])){
+       // redirect them to your desired location
+       header('location:../index.php');
+       exit;
+   }
+   ?>
 <div class="col-md-8">
+
     <div class="box">
         <div class="box-header">
             <div class="box-header">
@@ -165,3 +167,4 @@ if(!isset($_SERVER['HTTP_REFERER'])){
       <!--/.modal-dialog -->
    </div>
 </div>
+
