@@ -216,7 +216,25 @@
       $std_index=$_GET["std_index"];
       $index=$_SESSION["index_number"];
       
-      $sql = "SELECT * FROM student_attendance";
+      $sql ="select email,studId,date,month,year,subject from my_attendance  
+             inner join parents on my_attendance.studId = parents.my_son_index";
+      $result=mysqli_query($conn,$sql);
+      $row=mysqli_fetch_assoc($result);
+
+
+      $sql1="select sum(if(attendance='present',1,0)) as present ,sum(if(attendance='absent',1,0)) as absent
+            from my_attendance where studId = $std_index  and year LIKE '2022%'";
+      $result1 = mysqli_query($conn,$sql1);
+      $row1 = mysqli_fetch_assoc($result1);
+     
+      $sql2 = "SELECT * FROM teacher WHERE index_number='$index'";
+      $result2=mysqli_query($conn,$sql2);
+      $row2=mysqli_fetch_assoc($result2);
+      
+
+
+
+      /*$sql = "SELECT * FROM student_attendance";
       $result=mysqli_query($conn,$sql);
       $row=mysqli_fetch_assoc($result);
       
@@ -230,7 +248,7 @@
       
       $sql3 = "SELECT * FROM student_attendance";
       $result3=mysqli_query($conn,$sql3);
-      $row3=mysqli_fetch_assoc($result3);
+      $row3=mysqli_fetch_assoc($result3);*/
       
       /*if(isset($_POST["submit"])){
          $to = $_POST['email'];
@@ -285,16 +303,16 @@
       </style></head><body>';
       $message .= '<table class="styled-table" >';
       $message .= ' <thead><tr>';
-      $message .= '<th>Date</th><th>Month</th><th>Year</th><th>Time</th><th>Status 1</th><th>Status 2</th>';
+      $message .= '<th>Std Id</th><th>Month</th><th>Year</th><th>Total Present</th><th>Total Absent</th>';
       $message .= '<tbody><tr class="active-row"  style="border-bottom: 2px solid #009879;">';
       //if ($result->num_rows>0){
                 //  while ($row = $result->fetch_assoc()){
                      
-      $message .= '<td>'.$row['date'].'</td><td>'.$row['month'].'</td>';
+      $message .= '<td>'.$std_index.'</td>';
+      $message .= '<td>'. $row['month'].'</td>';
       $message .= '<td>'. $row['year'].'</td>';
-      $message .= '<td>'. $row['time'].'</td>';
-      $message .= '<td>'. $row['_status1'].'</td>';
-      $message .= '<td>'.$row['_status2'].'</td></tr>';
+      $message .= '<td>'. $row1['present'].'</td>';
+      $message .= '<td>'.$row1['absent'].'</td></tr>';
       //  }} 
       
       $message .= ' </thead></tr>';
@@ -303,7 +321,8 @@
       $headers = "MIME-Version: 1.0" . "\r\n";
       $headers .= "Content-type:text/html;charset=UTF-8" . "\r\b";
       $headers .= 'From: Teacher' . "\r\n";
-      mail($to, $subject, $message, $headers);
+     // $from ='veenasvastrad4@gmail.com';
+      mail($to,$subject, $message, $headers);
        }
       
       ?>
@@ -326,10 +345,11 @@
                                  <label for="exampleInputTo">To :</label>
                               </div>
                               <div class="col-xs-9">
-                                 <input type="text" class="form-control" name="email" autocomplete="off" value="<?php echo $row1['email']?>" readonly>  
+                                 <input type="text" class="form-control" name="email" autocomplete="off" value="<?php echo $row['email']?>" readonly>  
                               </div>
                            </div>
-                           <input type="hidden" class="form-control" name="from_email" autocomplete="off" value="veena.t.7671@gmail.com" readonly>  
+
+                           <!--input type="hidden" class="form-control" name="from_email" autocomplete="off" value="veena.t.7671@gmail.com" readonly-->  
                            <!--<div class="form-group">
                               <div class="col-xs-3">
                                 <label for="exampleInputFrom">From :</label>
@@ -363,12 +383,11 @@
          <table class="table styled-table">
             <thead>
                <tr>
-                  <th>Date</th>
+                  <th>Std Id</th>
                   <th>Month</th>
                   <th>Year</th>
-                  <th>Time</th>
-                  <th>Status 1</th>
-                  <th>Status 2</th>
+                  <th>Total Present</th>
+                  <th>Total Absent</th>
                </tr>
             </thead>
             <tbody>
@@ -376,18 +395,19 @@
                  // while ($row = $result->fetch_assoc()){
                      ?>
                <tr class="active-row">
-                  <td><?php echo $row['date'];?></td>
+                  <td><?php echo $std_index;?></td>
                   <td><?php echo $row['month'];?></td>
                   <td><?php echo $row['year'];?></td>
-                  <td><?php echo $row['time'];?></td>
-                  <td><?php echo $row['_status1'];?></td>
-                  <td><?php echo $row['_status2'];?></td>
+                  <td><?php echo $row1['present'];?></td>
+                  <td><?php echo $row1['absent'];?></td>
                   
                </tr>
                <?php
                // }
                 //  }
                   ?>
+
+
             </tbody>
          </table>
     
