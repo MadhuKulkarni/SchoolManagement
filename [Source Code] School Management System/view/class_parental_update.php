@@ -179,32 +179,38 @@
           
         $grade_id=$_GET["grade_id"];
         $index=$_SESSION["index_number"];
-          
-        $sql = "SELECT * FROM student_attendance";
-        $result=mysqli_query($conn,$sql);
-        $row=mysqli_fetch_assoc($result);
-      
-        $sql1 = "SELECT * FROM parents";
-        $result1=mysqli_query($conn,$sql1);
-        $row1=mysqli_fetch_assoc($result1);
-      
-      
-      
-      
-      // if ($result2->num_rows>0){
-       //while ($row2 = $result2->fetch_assoc()){
-      
-      //  $recivers = '';
-       if ($result1->num_rows>0){
-       while ($row1 = $result1->fetch_assoc()){
-       $to .= $row1["email"].","; 
-       }
-       }
-      echo rtrim($row1["email"],",");
-      echo rtrim($to, ","); 
-      //echo $recivers;
+        $std_index=$_GET["std_index"];
+  
+      /*$sql2="select studId from my_attendance";
+      $result2=mysqli_query($conn,$sql2);
+      $row2=mysqli_fetch_assoc($result2);
+      $student_index =$row2['studId'];*/
+
+ 
+ 
+  /* $sql1='select sum(if(attendance='present',1,0)) as present ,sum(if(attendance='absent',1,0)) as absent
+            from my_attendance where studId = $student_index  and year LIKE '2022%' ';
+     $result1=mysqli_query($conn,$sql1);
+     $row1 = mysqli_fetch_assoc($result1);*/
+
+
+/*$sql="select my_attendance.studId,my_attendance.month,my_attendance.year,my_attendance.attendance,
+parents.email,student_grade.grade_id from my_attendance
+join student_grade on my_attendance.studId=student_grade.index_number
+join parents on my_attendance.studId=parents.my_son_index where student_grade.grade_id=$grade_id";*/
+
+/*$sql="SELECT classid,studId,month,year,attendance in(select sum(if(attendance='present',1,0)) as present ,sum(if(attendance='absent',1,0)) as absent
+            from my_attendance where studId = $student_index  and year LIKE '2022%') email,
+FROM my_attendance
+JOIN parents  ON my_attendance.studId = parents.my_son_index";*/
+
+    $sql="select classid,studId,month,year,attendance,email from my_attendance inner join parents on    my_attendance.studId=parents.my_son_index where classid=$grade_id";
+     $result=mysqli_query($conn,$sql);
+     $row = mysqli_fetch_assoc($result);
+
+     foreach ($result as $row){
+      $to = $row['email'];
       $subject='Monthly Attendance Update ';
-      
       $message = '<html><head><style>
      .styled-table {
       border-collapse: collapse;
@@ -239,20 +245,26 @@
       color: #009879;
       }
       </style></head><body>';
+     /* $message .='$result1=mysqli_query($conn,$sql1);
+                  $row1 = mysqli_fetch_assoc($result1);';*/
       $message .= '<table class="styled-table" >';
       $message .= ' <thead><tr>';
-      $message .= '<th>Date</th><th>Month</th><th>Year</th><th>Time</th><th>Status 1</th><th>Status 2</th>';
+      $message .= '<th>Std Id</th><th>Month</th><th>Year</th><th>Total Present</th><th>Total Absent</th>';
       $message .= '<tbody><tr class="active-row"  style="border-bottom: 2px solid #009879;">';
-      if ($result->num_rows>0){
-                  while ($row = $result->fetch_assoc()){
-                     
-      $message .= '<td>'.$row['date'].'</td><td>'.$row['month'].'</td>';
+      //if ($result->num_rows>0){
+                //  while ($row = $result->fetch_assoc()){
+                
+      $message .= '<td>'.$row['studId'].'</td><td>'.$row['month'].'</td>';
       $message .= '<td>'. $row['year'].'</td>';
-      $message .= '<td>'. $row['time'].'</td>';
-      $message .= '<td>'. $row['_status1'].'</td>';
-      $message .= '<td>'.$row['_status2'].'</td></tr>';
-       }} 
       
+      $sql1="select sum(if(attendance='present',1,0)) as present ,sum(if(attendance='absent',1,0)) as absent
+            from my_attendance where studId = $row[studId]  and year LIKE '2022%'";
+      $result1 = mysqli_query($conn,$sql1);
+      $row1 = mysqli_fetch_assoc($result1);
+                  
+      $message .= '<td>'. $row1['present'].'</td>';
+      $message .= '<td>'.$row1['absent'].'</td></tr>';
+  
       $message .= ' </thead></tr>';
       $message .= "</table>";
       // Always set content-type when sending HTML email
@@ -260,14 +272,8 @@
       $headers .= "Content-type:text/html;charset=UTF-8" . "\r\b";
       $headers .= 'From: Teacher' . "\r\n";
       mail($to, $subject, $message, $headers);
-          // Sending email
-            if(mail($to, $subject, $message, $from,$headers )){
-               echo 'Your mail has been sent successfully.';
-            } else{
-               echo 'Unable to send email. Please try again.';
-            }
-       
-         
+     
+         }
           ?>
    <!-- Main content -->
    <section class="content">
@@ -276,13 +282,28 @@
             <div class="box box-primary">
                <div class="box-header with-border">
                   <h3 class="box-title">Student Update Mail</h3>
-                  <a href="my_parental_update.php?do=showSTable&grade_id=<?php echo $grade_id; ?>" style="float:right" type="button" class="btn text-right btn-success asd" id="btnSubmit2"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+                  <a href="my_parental_update.php?do=showSTable&grade_id=<?php echo $grade_id; ?>" style="float:right" type="button" class="btn text-right btn-success asd" id="btnSubmit2"><span class="glyphicon glyphicon-arrow-left"></span> Back
+                  </a>
                </div>
                <!-- /.box-header -->
-            </div>
+
+<div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="col-md-offset-3 col-md-6">
+                  
+      
+              <h4><strong style="color:red;">Success!</strong> Your Mail has been sent successfully of Class : <strong style="color:red;"><?php echo $grade_id;  ?></strong>&nbsp;&nbsp;Students.</h4>
+          
+          
+            </div>      
+   
+   </div>
+ </div>
+
             <!-- /.box -->
          </div>
-      </div>
+      </div></div>
    </section>
    <!-- End of form section -->
 </div>
