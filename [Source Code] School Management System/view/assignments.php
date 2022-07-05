@@ -145,7 +145,7 @@
    <!--MSK-000112--> 
    <?php 
       if($grade!=='' && $subject!=''){
-        echo '<section  class="content-header" style="background-color:white; width:63%;border-top: 3px solid #3c8dbc;">';
+        echo '<section  class="content-header" style="background-color:white; width:71%;border-top: 3px solid #3c8dbc;">';
       
          echo '<div class="row" id="table1">';
            echo '<div class="box-header with-border">';
@@ -161,7 +161,7 @@
          $result2=mysqli_query($conn,$sql);
         
          echo '<div class="box-body table-responsive">';
-         echo "<table class='table table-bordered table-striped' style='width:80% ;'>";
+         echo "<table class='table table-bordered table-striped' style='width:83% ;'>";
          echo "<thead> 
       
                <th>Date</th>               
@@ -172,7 +172,8 @@
                </thead>";
          echo "<tbody>";
          while($row=mysqli_fetch_assoc($result2)){
-         $assignment = ($row['assignment'] == '') ? '<input type="file" class="fileAjax" name="fileAjax"/ style="width:200px;"><button class="uploadAssignment">Submit</button><span class="status"></span>': '<a href="'.$row['assignment'].'" target="_blank">View Assignment</a>';
+         $assignment = '<input type="file" class="fileAjax" name="fileAjax"/ style="width:200px;"><button class="uploadAssignment">Submit</button><span class="status"></span>';
+         $assignment .= ($row['assignment'] == '') ? '': '<a href="'.$row['assignment'].'" target="_blank" style="padding-left:20px;color:aqua;font-weight:800">View Assignment</a>';
             echo "<tr>
                <td>{$row['time_date']}</td>
                <td>{$row['name']}</td>
