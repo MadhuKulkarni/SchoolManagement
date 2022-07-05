@@ -930,6 +930,79 @@ INSERT INTO `user` (`id`, `email`, `password`, `type`) VALUES
 (69, 'dad123@gmail.com', '12345', 'Parents'),
 (70, 'lkforex2015111@gmail.com', '12345', 'Student');
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `my_attendance`
+--
+
+CREATE TABLE `my_attendance` (
+  `classid` int(8) NOT NULL,
+  `studId` int(50) NOT NULL,
+  `subject` varchar(15) NOT NULL,
+  `date` varchar(15) NOT NULL,
+  `month` varchar(10) NOT NULL,
+  `year` int(4) NOT NULL,
+  `time` varchar(14) NOT NULL,
+  `attendance` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `my_attendance`
+--
+
+INSERT INTO `my_attendance` (`classid`, `studId`, `subject`, `date`, `month`, `year`, `time`, `attendance`) VALUES
+(11, 11, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(11, 11, 'Chemistry', '02-07-2022', 'July', 2022, '14:00-15:00', 'Absent'),
+(11, 11, 'Math', '28-06-2022', 'June', 2022, '15:30-16:30', 'Present'),
+(11, 11, 'Physics', '01-07-2022', 'July', 2022, '14:00-15:00', 'Absent'),
+(11, 11, 'Physics', '27-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(11, 12, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(11, 12, 'Chemistry', '02-07-2022', 'July', 2022, '14:00-15:00', 'Absent'),
+(11, 12, 'Math', '28-06-2022', 'June', 2022, '15:30-16:30', 'Absent'),
+(11, 12, 'Physics', '01-07-2022', 'July', 2022, '14:00-15:00', 'Present'),
+(11, 12, 'Physics', '27-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(11, 13, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(11, 13, 'Chemistry', '02-07-2022', 'July', 2022, '14:00-15:00', 'Absent'),
+(11, 13, 'Math', '28-06-2022', 'June', 2022, '15:30-16:30', 'Present'),
+(11, 13, 'Physics', '01-07-2022', 'July', 2022, '14:00-15:00', 'Present'),
+(11, 13, 'Physics', '27-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(11, 19, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(11, 19, 'Math', '28-06-2022', 'June', 2022, '15:30-16:30', 'Present'),
+(11, 19, 'Physics', '01-07-2022', 'July', 2022, '14:00-15:00', 'Present'),
+(11, 19, 'Physics', '27-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(13, 20, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Absent'),
+(11, 20, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Absent'),
+(13, 20, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(11, 20, 'Math', '28-06-2022', 'June', 2022, '15:30-16:30', 'Present'),
+(11, 20, 'Physics', '01-07-2022', 'July', 2022, '14:00-15:00', 'Present'),
+(11, 20, 'Physics', '27-06-2022', 'June', 2022, '11:00-12:00', 'Absent'),
+(13, 21, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Absent'),
+(13, 21, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(12, 21, 'Chemistry', '01-07-2022', 'July', 2022, '15:30-16:30', 'Present'),
+(12, 21, 'Math', '28-06-2022', 'June', 2022, '14:00-15:00', 'Present'),
+(13, 22, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Absent'),
+(13, 22, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(12, 22, 'Chemistry', '01-07-2022', 'July', 2022, '15:30-16:30', 'Present'),
+(12, 22, 'Math', '28-06-2022', 'June', 2022, '14:00-15:00', 'Absent'),
+(13, 23, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Absent'),
+(13, 23, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(12, 23, 'Chemistry', '01-07-2022', 'July', 2022, '15:30-16:30', 'Present'),
+(12, 23, 'Math', '28-06-2022', 'June', 2022, '14:00-15:00', 'Present'),
+(13, 24, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Absent'),
+(13, 24, 'Biology', '28-06-2022', 'June', 2022, '11:00-12:00', 'Present'),
+(12, 24, 'Chemistry', '01-07-2022', 'July', 2022, '15:30-16:30', 'Present'),
+(12, 24, 'Math', '28-06-2022', 'June', 2022, '14:00-15:00', 'Present'),
+(12, 25, 'Chemistry', '01-07-2022', 'July', 2022, '15:30-16:30', 'Present'),
+(12, 25, 'Math', '28-06-2022', 'June', 2022, '14:00-15:00', 'Present'),
+(13, 26, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Present'),
+(13, 27, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Present'),
+(13, 28, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Present'),
+(13, 29, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Present'),
+(13, 30, 'Biology', '02-07-2022', 'July', 2022, '11:00-12:00', 'Present');
+
+
 --
 -- Indexes for dumped tables
 --
@@ -1139,6 +1212,12 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `my_attendance`
+--
+ALTER TABLE `my_attendance`
+  ADD PRIMARY KEY (`studId`,`subject`,`date`,`time`,`classid`) USING BTREE;
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1345,6 +1424,16 @@ ALTER TABLE `timetable`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `my_attendance`
+--
+ALTER TABLE `my_attendance`
+  ADD CONSTRAINT `my_attendance_ibfk_1` FOREIGN KEY (`studId`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
