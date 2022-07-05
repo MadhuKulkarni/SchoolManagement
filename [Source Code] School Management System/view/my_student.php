@@ -1187,7 +1187,7 @@ display:none;
       	window.scrollTo(0,document.body.scrollHeight);
       };
 
-      
+	</script>
 <?php
 if(isset($_GET["do"])&&($_GET["do"]=="alert_from_class_insert")){
 //MSK-000143-24-PHP-JS-INSERT 
@@ -1263,9 +1263,9 @@ if(isset($_GET["do"])&&($_GET["do"]=="showSTable")){
 	echo '<script>','CPageGrade1('.$grade.');','</script>';
 }
 ?>
-<!--run update alert using PHP & JS/JQUERY  -->    
+/* run update alert using PHP & JS/JQUERY     */
       
-
+	<script>
       window.addEventListener("popstate", function() {
         if(location.hash === "#!/history") {
           history.replaceState(null, document.title, location.pathname);
@@ -1274,7 +1274,7 @@ if(isset($_GET["do"])&&($_GET["do"]=="showSTable")){
           },0);
         }
       }, false);
-      }(window, location));
+      /* }(window, location)); */
    </script>
 
 </div>
@@ -1657,7 +1657,7 @@ window.addEventListener("popstate", function() {
 }(window, location));
 
 
-<!--   /* load students on modal window */-->
+/* load students on modal window */
 
 $('body').on('click', '.submitDetails', function(e){
    e.preventDefault();
