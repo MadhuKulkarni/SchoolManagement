@@ -1221,7 +1221,7 @@ ALTER TABLE `user`
 -- Indexes for table `my_attendance`
 --
 ALTER TABLE `my_attendance`
-  ADD PRIMARY KEY (`studId`,`subject`,`date`,`time`,`classid`) USING BTREE;
+  ADD PRIMARY KEY (`studId`,`subject`,`time`,`date`);
 
 --
 -- AUTO_INCREMENT for dumped tables

@@ -18,6 +18,9 @@
                 <?php
                 include_once('../controller/config.php');
                 $grade_id=$_GET['grade'];
+               //  echo $grade_id;
+                session_start();
+                $_SESSION["class_id"]= $grade_id;
                 ?>
                 <div class="col-md-9 pull-right"> 
                     <a  href="add_student2.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-info btn-xs">Add Student</a>
@@ -37,7 +40,7 @@
                 <tbody>
                     <?php
                     include_once('../controller/config.php');
-                    $grade_id=$_GET['grade'];
+                  //   $grade_id=$_GET['grade'];
                     $current_year=date('Y');
 
                     $sql="select student.i_name as std_name,student.id as std_id,student.index_number as std_index 
@@ -139,6 +142,7 @@
 								<h3 class="box-title"><strong>Attendance List</strong></h3>
 				  				<!-- alert from response -->
 								<span class="attendance-status" style="padding: 0 8px;color: deepskyblue; background: antiquewhite; border-radius: 10px;float: right;"></span>
+                        <span class="error-status" style="padding: 0 8px;color: red; background: antiquewhite; border-radius: 10px;float: right;"></span>
 							</div>
 							<!-- /.box-header -->
 
@@ -156,7 +160,7 @@
                   </div><!--/.panel-body ends-->
                   <!-- panel footer starts -->
                   <div class="panel-footer" style="text-align:right;">
-                     <button type="submit" class="btn btn-info submitToDB"  >Submit</button>
+                     <button type="submit" class="btn btn-info submitToDB" disabled>Submit</button>
                   </div>
                </div>
                <!--/. panel--> 
