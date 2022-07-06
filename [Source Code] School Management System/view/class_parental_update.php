@@ -179,32 +179,8 @@
           
         $grade_id=$_GET["grade_id"];
         $index=$_SESSION["index_number"];
-        $std_index=$_GET["std_index"];
-  
-      /*$sql2="select studId from my_attendance";
-      $result2=mysqli_query($conn,$sql2);
-      $row2=mysqli_fetch_assoc($result2);
-      $student_index =$row2['studId'];*/
-
- 
- 
-  /* $sql1='select sum(if(attendance='present',1,0)) as present ,sum(if(attendance='absent',1,0)) as absent
-            from my_attendance where studId = $student_index  and year LIKE '2022%' ';
-     $result1=mysqli_query($conn,$sql1);
-     $row1 = mysqli_fetch_assoc($result1);*/
-
-
-/*$sql="select my_attendance.studId,my_attendance.month,my_attendance.year,my_attendance.attendance,
-parents.email,student_grade.grade_id from my_attendance
-join student_grade on my_attendance.studId=student_grade.index_number
-join parents on my_attendance.studId=parents.my_son_index where student_grade.grade_id=$grade_id";*/
-
-/*$sql="SELECT classid,studId,month,year,attendance in(select sum(if(attendance='present',1,0)) as present ,sum(if(attendance='absent',1,0)) as absent
-            from my_attendance where studId = $student_index  and year LIKE '2022%') email,
-FROM my_attendance
-JOIN parents  ON my_attendance.studId = parents.my_son_index";*/
-
-    $sql="select classid,studId,month,year,attendance,email from my_attendance inner join parents on    my_attendance.studId=parents.my_son_index where classid=$grade_id";
+          
+     $sql="select distinct classid,studId,year,email from my_attendance inner join parents on    my_attendance.studId=parents.my_son_index where classid=$grade_id";
      $result=mysqli_query($conn,$sql);
      $row = mysqli_fetch_assoc($result);
 
@@ -245,23 +221,19 @@ JOIN parents  ON my_attendance.studId = parents.my_son_index";*/
       color: #009879;
       }
       </style></head><body>';
-     /* $message .='$result1=mysqli_query($conn,$sql1);
-                  $row1 = mysqli_fetch_assoc($result1);';*/
       $message .= '<table class="styled-table" >';
       $message .= ' <thead><tr>';
-      $message .= '<th>Std Id</th><th>Month</th><th>Year</th><th>Total Present</th><th>Total Absent</th>';
+      $message .= '<th>Std Id</th><th>Year</th><th>Total Present</th><th>Total Absent</th>';
       $message .= '<tbody><tr class="active-row"  style="border-bottom: 2px solid #009879;">';
-      //if ($result->num_rows>0){
-                //  while ($row = $result->fetch_assoc()){
                 
-      $message .= '<td>'.$row['studId'].'</td><td>'.$row['month'].'</td>';
+      $message .= '<td>'.$row['studId'].'</td>';
       $message .= '<td>'. $row['year'].'</td>';
       
       $sql1="select sum(if(attendance='present',1,0)) as present ,sum(if(attendance='absent',1,0)) as absent
-            from my_attendance where studId = $row[studId]  and year LIKE '2022%'";
+            from my_attendance where studId = $row[studId] and classid=$grade_id";
       $result1 = mysqli_query($conn,$sql1);
       $row1 = mysqli_fetch_assoc($result1);
-                  
+          
       $message .= '<td>'. $row1['present'].'</td>';
       $message .= '<td>'.$row1['absent'].'</td></tr>';
   
