@@ -15,7 +15,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
                 $grade_id=$_GET['grade'];
                 ?>
                 <div class="col-md-offset-10">
-<a  href="class_parental_update.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-success btn-xs">Class Parental Update</a>
+<a  href="class_parental_update.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-success btn-xs">Bulk Parental Update</a>
                 </div>
             </div><!-- /.box-header -->
 
