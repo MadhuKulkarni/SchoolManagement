@@ -1,3 +1,5 @@
+nes (1217 sloc)  42.3 KB
+
 -- phpMyAdmin SQL Dump
 -- version 4.9.7
 -- https://www.phpmyadmin.net/
@@ -202,6 +204,7 @@ INSERT INTO `exam_range_grade` (`id`, `grade_id`, `mark_range`, `_from`, `_to`, 
 
 CREATE TABLE `exam_timetable` (
   `id` int(11) NOT NULL,
+  `exam_date` date NOT NULL,
   `grade_id` int(11) NOT NULL,
   `exam_id` int(11) NOT NULL,
   `day` varchar(255) NOT NULL,
@@ -844,10 +847,13 @@ CREATE TABLE `timetable` (
   `subject_id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
   `classroom_id` int(11) NOT NULL,
+  `time_date` date NOT NULL,
   `start_time` double(11,2) NOT NULL,
-  `end_time` double(11,2) NOT NULL
+  `end_time` double(11,2) NOT NULL,
+  `meeting_link` varchar(255) NOT NULL,
+  `assignment` varchar(255) NOT NULL,
+  `notes` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Dumping data for table `timetable`
 --
