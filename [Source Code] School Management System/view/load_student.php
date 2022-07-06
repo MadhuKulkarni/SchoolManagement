@@ -1,8 +1,9 @@
 <?php
     session_start();
     include_once('../controller/config.php');
-    $class_id = $_SESSION["class_id"];
-    $sql="SELECT s.index_number, g.name, s.full_name FROM student_grade AS st JOIN grade AS g ON st.grade_id = g.id JOIN student AS s ON st.index_number = s.index_number WHERE st.grade_id = $class_id ";
+    $class_id =  $_SESSION["class_id"];
+    // echo $class_id;
+    $sql="SELECT s.id, g.name, s.full_name FROM student_grade AS st JOIN grade AS g ON st.grade_id = g.id JOIN student AS s ON st.index_number = s.index_number WHERE g.id= $class_id ";
     $result=mysqli_query($conn,$sql);
 ?>
 <table id="ex1" class="table table-bordered table-striped table"> <!-- id was example1 to format as Datatable-->
@@ -27,7 +28,7 @@
                         echo $row["name"];
                         ?>
                     </td>
-                    <td data-studid='<?php echo $row["index_number"] ?>'>
+                    <td data-studid='<?php echo $row["id"] ?>'>
                         <?php
                         echo $row["full_name"];
                         ?>
