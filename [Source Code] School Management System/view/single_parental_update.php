@@ -274,15 +274,10 @@
       $message .= ' <thead><tr>';
       $message .= '<th>Std Id</th><th>Year</th><th>Total Present</th><th>Total Absent</th>';
       $message .= '<tbody><tr class="active-row" style="border-bottom: 2px solid #009879;">';
-      //if ($result->num_rows>0){
-                //  while ($row = $result->fetch_assoc()){
-                     
       $message .= '<td>'.$std_index.'</td>';
       $message .= '<td>'. $row['year'].'</td>';
       $message .= '<td>'. $row1['present'].'</td>';
       $message .= '<td>'.$row1['absent'].'</td></tr>';
-      //  }} 
-      
       $message .= ' </thead></tr>';
       $message .= "</table>";
       // Always set content-type when sending HTML email
