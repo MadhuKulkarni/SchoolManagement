@@ -493,8 +493,6 @@ function CPageGrade(grade,page){
 function CPageGrade1(grade){
 //MSK-000125
 	
-	
-	
 	var xhttp = new XMLHttpRequest();//MSK-000126-Ajax Start
   		xhttp.onreadystatechange = function() {
 			
