@@ -102,7 +102,6 @@ if(isset($_POST["do"])&&($_POST["do"]=="add_class_student")){
 
 				}
 
-				
-
+			
 			}
 		?>
