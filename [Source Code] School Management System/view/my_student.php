@@ -396,18 +396,18 @@ display:none;
             <!-- general form elements -->
             <div class="box box-primary">
                <div class="box-header with-border">
-                  <h3 class="box-title">Select Grade</h3>
+                  <h3 class="box-title">Select Class</h3>
                </div>
                <!-- /.box-header -->
                <div class="box-body" >
                   <div class="form-group" id="divGender">
                      <div class="col-xs-3">
-                        <label for="exampleInputPassword1">Grade</label>
+                        <label for="exampleInputPassword1">Class</label>
                      </div>
                      <div class="col-xs-4" id="divGender1">
                         <select name="grade" class="form-control" id="grade" >
                            <!--MSK-000107-->
-                           <option>Select Grade</option>
+                           <option>Select Class</option>
                            <?php
                               include_once('../controller/config.php');
                               $sql="SELECT * FROM grade";
