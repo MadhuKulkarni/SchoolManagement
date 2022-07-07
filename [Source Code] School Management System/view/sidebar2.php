@@ -39,11 +39,7 @@ $image=$row['image_name'];
           </a>
         </li>
          <li>
-          <!--<a href="my_student.php">
-            <i class="fa fa-graduation-cap"></i> <span>My Class Management</span>
-          </a>
-        </li>-->
-         <li class="treeview">
+          <li class="treeview">
           <a href="#">
             <i class="fa fa-graduation-cap"></i>
             <span>My Class Management</span>
