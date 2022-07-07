@@ -263,11 +263,8 @@
       <div class="row">
          <div class="col-md-12">
             <div class="col-md-offset-3 col-md-6">
-                  
-      
-              <h4><strong style="color:red;">Success!</strong> Your Mail has been sent successfully of Class : <strong style="color:red;"><?php echo $grade_id;  ?></strong>&nbsp;&nbsp;Students.</h4>
-          
-          
+               <h4><strong style="color:red;">Success!</strong> Your Mail has been sent successfully of Class : <strong style="color:red;"><?php echo $grade_id;  ?></strong>&nbsp;&nbsp;Students.</h4>
+              
             </div>      
    
    </div>
