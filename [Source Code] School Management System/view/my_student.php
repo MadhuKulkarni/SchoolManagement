@@ -1187,82 +1187,7 @@ display:none;
       	window.scrollTo(0,document.body.scrollHeight);
       };
 
-      
-<?php
-if(isset($_GET["do"])&&($_GET["do"]=="alert_from_class_insert")){
-//MSK-000143-24-PHP-JS-INSERT 
 
-$msg=$_GET['msg'];
-$grade=$_GET['grade'];
-
-	if($msg==1){
-		
-		echo '<script>','CPageGrade1('.$grade.');','</script>';
-		
-		echo"
-				<script>
-				
-				var myModal = $('#index_Duplicated');
-				myModal.modal('show');
-				
-				
-				myModal.data('hideInterval', setTimeout(function(){
-					myModal.modal('hide');
-					
-				}, 3000));
-							
-				</script>
-			";	
-	}
-
-	if($msg==2){
-		
-		echo '<script>','CPageGrade1('.$grade.');','</script>';
-		
-		echo"
-				<script>
-				
-				var myModal = $('#insert_Success');
-				myModal.modal('show');
-				
-				
-				myModal.data('hideInterval', setTimeout(function(){
-					myModal.modal('hide');
-					
-				}, 3000));
-							
-				</script>
-			";	
-	}
-	
-	if($msg==4){
-		
-		echo '<script>','CPageGrade1('.$grade.');','</script>';
-		
-		echo"
-				<script>
-				
-				var myModal = $('#connection_Problem');
-				myModal.modal('show');
-				
-				
-				myModal.data('hideInterval', setTimeout(function(){
-					myModal.modal('hide');
-					
-				}, 3000));
-							
-				</script>
-			";
-			
-	}
-	
-}
-
-if(isset($_GET["do"])&&($_GET["do"]=="showSTable")){
-	$grade=$_GET['grade_id'];
-	echo '<script>','CPageGrade1('.$grade.');','</script>';
-}
-?>
 <!--run update alert using PHP & JS/JQUERY  -->    
       
 
@@ -1736,6 +1661,83 @@ $('body').on('click', '.submitDetails', function(e){
 
 
 </script>
+
+      
+<?php
+if(isset($_GET["do"])&&($_GET["do"]=="alert_from_class_insert")){
+//MSK-000143-24-PHP-JS-INSERT 
+
+$msg=$_GET['msg'];
+$grade=$_GET['grade'];
+
+	if($msg==1){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#index_Duplicated');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";	
+	}
+
+	if($msg==2){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#insert_Success');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";	
+	}
+	
+	if($msg==4){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#connection_Problem');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";
+			
+	}
+	
+}
+
+if(isset($_GET["do"])&&($_GET["do"]=="showSTable")){
+	$grade=$_GET['grade_id'];
+	echo '<script>','CPageGrade1('.$grade.');','</script>';
+}
+?>
 	      
 </div><!-- /.content-wrapper -->  
              
