@@ -22,7 +22,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
                                     <th></th>
                                     <th>Subject</th>
                                     <th>Teacher</th>
-                                    <th>Fee($)</th>
+                                   <!-- <th>Fee($)</th>-->
                                 </thead>
                         		<tbody>
 <?php 
@@ -51,7 +51,7 @@ while($row=mysqli_fetch_assoc($result)){
                                         <td><input type="checkbox" name="checkbox[]" id="checkbox1" value="<?php echo $row["sr_id"]; ?>"></td>
                                         <td><?php echo $row['s_name']; ?></td>
                                         <td><?php echo $row['t_name']; ?></td>
-                                        <td><?php echo $row['sr_fee']; ?></td>
+                                       <!-- td?php echo $row['sr_fee']; ?></td>-->
                                     </tr>
 <?php } } ?>                            
                         		</tbody>

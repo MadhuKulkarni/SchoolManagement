@@ -64,21 +64,6 @@ $image=$row['image_name'];
             <li><a href="all_subject1.php"><i class="fa fa-circle-o"></i> All Subject</a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-font"></i>
-            <span>Activities</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            
-            <li><a href="my_assignment.php"><i class="fa fa-circle-o"></i>Assignment</a></li>
-            <li><a href="my_notes.php"><i class="fa fa-circle-o"></i>Notes</a></li>
-          </ul>
-        </li>
-        
          
          <li class="treeview">
           <a href="#">
@@ -106,11 +91,11 @@ $image=$row['image_name'];
             <li><a href="my_attendance_history.php"><i class="fa fa-circle-o"></i> My Attendance History</a></li>
           </ul>
         </li>
-         <li>
+        <!-- <li>
           <a href="my_payments.php">
             <i class="fa fa-money"></i> <span>My Payments</span>
           </a>
-        </li>
+        </li>-->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-certificate"></i>
@@ -125,12 +110,12 @@ $image=$row['image_name'];
             <li><a href="my_exam_timetable.php"><i class="fa fa-circle-o"></i>My Exam Timetable</a></li>
           </ul>
         </li>
-        <li class="treeview">
+       <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-facebook"></i>
             <span>Friends</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <i class="fa fa-angle-left pull-right"></i>-->
             </span>
           </a>
           <ul class="treeview-menu">
