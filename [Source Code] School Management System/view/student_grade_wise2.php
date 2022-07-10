@@ -26,7 +26,6 @@
                     <a href="add_student2.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-info btn-xs" style="margin-right:5px;padding:5px 10px;">Add Student</a>
                </div>
             </div><!-- /.box-header -->
-
         </div>
         <div class="box-body table-responsive">
             <table id="example1" class="table table-bordered table-striped">

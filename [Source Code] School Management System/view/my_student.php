@@ -396,18 +396,18 @@ display:none;
             <!-- general form elements -->
             <div class="box box-primary">
                <div class="box-header with-border">
-                  <h3 class="box-title">Select Grade</h3>
+                  <h3 class="box-title">Select Class</h3>
                </div>
                <!-- /.box-header -->
                <div class="box-body" >
                   <div class="form-group" id="divGender">
                      <div class="col-xs-3">
-                        <label for="exampleInputPassword1">Grade</label>
+                        <label for="exampleInputPassword1">Class</label>
                      </div>
                      <div class="col-xs-4" id="divGender1">
                         <select name="grade" class="form-control" id="grade" >
                            <!--MSK-000107-->
-                           <option>Select Grade</option>
+                           <option>Select Class</option>
                            <?php
                               include_once('../controller/config.php');
                               $sql="SELECT * FROM grade";
@@ -1187,6 +1187,7 @@ display:none;
       	window.scrollTo(0,document.body.scrollHeight);
       };
 
+
 	</script>
 <?php
 if(isset($_GET["do"])&&($_GET["do"]=="alert_from_class_insert")){
@@ -1263,7 +1264,6 @@ if(isset($_GET["do"])&&($_GET["do"]=="showSTable")){
 	echo '<script>','CPageGrade1('.$grade.');','</script>';
 }
 ?>
-/* run update alert using PHP & JS/JQUERY     */
       
 	<script>
       window.addEventListener("popstate", function() {
@@ -1750,6 +1750,83 @@ $('body').on('click', '.submitDetails', function(e){
 
 
 </script>
+
+      
+<?php
+if(isset($_GET["do"])&&($_GET["do"]=="alert_from_class_insert")){
+//MSK-000143-24-PHP-JS-INSERT 
+
+$msg=$_GET['msg'];
+$grade=$_GET['grade'];
+
+	if($msg==1){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#index_Duplicated');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";	
+	}
+
+	if($msg==2){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#insert_Success');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";	
+	}
+	
+	if($msg==4){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#connection_Problem');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";
+			
+	}
+	
+}
+
+if(isset($_GET["do"])&&($_GET["do"]=="showSTable")){
+	$grade=$_GET['grade_id'];
+	echo '<script>','CPageGrade1('.$grade.');','</script>';
+}
+?>
 	      
 </div><!-- /.content-wrapper -->  
              
