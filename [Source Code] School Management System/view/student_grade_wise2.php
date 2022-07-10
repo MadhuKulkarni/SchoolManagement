@@ -13,10 +13,14 @@
             <div class="box-header">
                 <h3 class="box-title">My Student</h3>
                 <!-- attendance feature -->
+                <button href="#uploadStudents" class="btn btn-sm btn-primary pull-right" data-toggle="modal">Upload Students</button>
                 <button  class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#attendance">Attendance</button>
                 <?php
                 include_once('../controller/config.php');
                 $grade_id=$_GET['grade'];
+               //  echo $grade_id;
+                session_start();
+                $_SESSION["class_id"]= $grade_id;
                 ?>
                 <div class="pull-right"> 
                     <a href="add_student2.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-info btn-xs" style="margin-right:5px;padding:5px 10px;">Add Student</a>
@@ -33,7 +37,7 @@
                 <tbody>
                     <?php
                     include_once('../controller/config.php');
-                    $grade_id=$_GET['grade'];
+                  //   $grade_id=$_GET['grade'];
                     $current_year=date('Y');
 
                     $sql="select student.i_name as std_name,student.id as std_id,student.index_number as std_index 
@@ -133,6 +137,7 @@
 								<h3 class="box-title"><strong>Attendance List</strong></h3>
 				  				<!-- alert from response -->
 								<span class="attendance-status" style="padding: 0 8px;color: deepskyblue; background: antiquewhite; border-radius: 10px;float: right;"></span>
+                        <span class="error-status" style="padding: 0 8px;color: red; background: antiquewhite; border-radius: 10px;float: right;"></span>
 							</div>
 							<!-- /.box-header -->
 
@@ -150,7 +155,7 @@
                   </div><!--/.panel-body ends-->
                   <!-- panel footer starts -->
                   <div class="panel-footer" style="text-align:right;">
-                     <button type="submit" class="btn btn-info submitToDB"  >Submit</button>
+                     <button type="submit" class="btn btn-info submitToDB" disabled>Submit</button>
                   </div>
                </div>
                <!--/. panel--> 
@@ -163,3 +168,48 @@
    </div>
 </div>
 
+<!--Modal upload CSV-->
+<div class="modal msk-fade" style="display: none;" id="uploadStudents" tabindex="-1" role="dialog" aria-labelledby="insert_alert1" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;">
+   <div class="modal-dialog">
+      <!--modal-dialog -->  
+      <div class="container col-lg-12 ">
+         <!--modal-content --> 
+         <div class="row">
+            <div class="panel panel-info">
+               <!--panel --> 
+               <div class="panel-heading">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  <h3 class="panel-title" id="hname"></h3>
+               </div>
+               <div class="panel-body">
+                  <!--panel-body -->
+                  <div class="row">
+                     <div class=" col-md-9">
+                        <form action="" method="post" enctype="multipart/form-data">
+                           <div class="input-group">
+                              <div class="custom-file">
+                                 <input type="file" class="custom-file-input" id="customFileInput" aria-describedby="customFileInput" name="file">
+                                 <label class="custom-file-label" for="customFileInput">Select CSV file</label>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <!--/.panel-body -->
+               <div class="panel-footer">
+                  <div class="input-group-append">
+                     <input type="submit" name="submit" value="Upload" id="upload-csv" class="btn btn-primary">
+                  </div>
+                  <div id="upload-status"></div>
+               </div>
+            </div>
+            <!--/. panel--> 
+         </div>
+         <!--/.row --> 
+      </div>
+      <!--/.modal-content -->
+   </div>
+   <!--/.modal-dialog -->
+</div>
+<!--modal upload CSV end-->

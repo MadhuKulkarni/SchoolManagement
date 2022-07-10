@@ -8,7 +8,7 @@
 <?php 
    //collecting the Values
    $subject='';
-   $grade=''; 
+   $grade='';
    if(isset($_POST['grade']) && isset($_POST['subject'])) {
    $grade = (int)$_POST['grade'];
    $subject = (int)$_POST['subject'];
@@ -151,33 +151,44 @@
                    echo  '<h3 class="box-title">Assignments</h3>';
                  echo '</div>';
                $sql= "SELECT timetable.time_date,timetable.start_time,timetable.end_time,timetable.assignment,
-               subject.name,timetable.id            
+               subject.name,timetable.id, student_assignment.assignment_upload, student_assignment.feedback           
                from timetable      
                inner join subject
                on subject.id=timetable.subject_id
+               left join student_assignment 
+               on timetable.id=student_assignment.timetable_id AND student_assignment.student_id=".$my_index."
                where timetable.grade_id =".$grade." and timetable.subject_id = ".$subject;
              
                $result2=mysqli_query($conn,$sql);
               
                echo '<div class="box-body table-responsive">';
-               echo "<table class='table table-bordered table-striped' style='width:80% ;'>";
+               echo "<table class='table table-bordered table-striped' style='width:100% ;'>";
                echo "<thead> 
 
                      <th>Date</th>               
                      <th>Subject Name</th>
                      <th>Start Time</th>
                      <th>End Time</th>
-                     <th>Assignment</th>       
+                     <th>Assignment From Teacher</th>    
+                     <th>My Assignment</th>
+                     <th>Feedback By Teacher</th>                        
                      </thead>";
                echo "<tbody>";
                while($row=mysqli_fetch_assoc($result2)){
+                  // echo "<pre>";
+                  // print_r($row);
+                  // echo "</pre>";
 				$assignment = ($row['assignment'] == '') ? 'Not available': '<a href="'.$row['assignment'].'" target="_blank">View Assignment</a>';
+            $myAssignment = '<input type="file" class="fileAjax" name="fileAjax"/ style="width:200px;"><button class="uploadAssignment">Submit</button><span class="status"></span>';
+             $myAssignment .= ($row['assignment_upload'] == '') ? '': '<a href="'.$row['assignment_upload'].'" target="_blank" style="padding-left:20px;color:aqua;font-weight:800">View Assignment</a>';
                   echo "<tr>
                      <td>{$row['time_date']}</td>
                      <td>{$row['name']}</td>
                      <td>{$row['start_time']}</td>
                      <td>{$row['end_time']}</td>
 					 <td>{$assignment}</td>
+                <td data-id='". $row['id']. "'>{$myAssignment}</td>
+                <td>{$row['feedback']}</td>
                   </tr>";                     
                }
                echo "</tbody>";
@@ -189,5 +200,58 @@
             ?>
 </div>  
 <?php include_once('footer.php');?>
+
+<script>
+   $(document).ready(function(){
+      $('.uploadAssignment').on('click', function(event) {
+         event.preventDefault();
+         let button = $(this);
+         let id = button.parent().attr('data-id');
+         let action = (button.parent().find('a').length > 0) ? 'update' : 'insert';
+         let file = button.prev();
+         let status = button.next();
+   
+         status.text('Uploading...');
+   
+         // Get the files from the form input
+         let files = file[0].files;
+   
+         // Create a FormData object
+         let formData = new FormData();
+   
+         // Select only the first file from the input array
+         let myFile = files[0];
+         
+         // Add the file to the AJAX request
+         formData.append('fileAjax', myFile, myFile.name);
+   
+         // Add id to the AJAX request
+         formData.append('timetable_id', id);
+         formData.append('student_id', <?php echo $my_index ?>);
+         formData.append('action', action);
+   
+         $.ajax({
+            url: 'uploadFileStudent.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+               if(response.includes('has been uploaded')) {
+                  status.css({
+                     'color': 'green'
+                  });
+               } else {
+                  status.css({
+                     'color': 'red'
+                  });
+               }
+               status.text(response);
+            }
+         });
+      });
+   });
+   
+</script>
 
 <!-- condition ? (do if true here) : (do if false here) -->

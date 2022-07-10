@@ -571,7 +571,7 @@ display:none;
       	$grade=$_GET['grade_id'];
       	echo '<script>','CPageGrade1('.$grade.');','</script>';
       }
-      ?>
+    ?>
    <!-- //MSK-000131 Modal-Delete Confirm Popup -->
    <div class="modal msk-fade " id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
       <div class="modal-dialog">
@@ -1188,9 +1188,84 @@ display:none;
       };
 
 
-<!--run update alert using PHP & JS/JQUERY  -->    
-      
+	</script>
+<?php
+if(isset($_GET["do"])&&($_GET["do"]=="alert_from_class_insert")){
+//MSK-000143-24-PHP-JS-INSERT 
 
+$msg=$_GET['msg'];
+$grade=$_GET['grade'];
+
+	if($msg==1){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#index_Duplicated');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";	
+	}
+
+	if($msg==2){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#insert_Success');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";	
+	}
+	
+	if($msg==4){
+		
+		echo '<script>','CPageGrade1('.$grade.');','</script>';
+		
+		echo"
+				<script>
+				
+				var myModal = $('#connection_Problem');
+				myModal.modal('show');
+				
+				
+				myModal.data('hideInterval', setTimeout(function(){
+					myModal.modal('hide');
+					
+				}, 3000));
+							
+				</script>
+			";
+			
+	}
+	
+}
+
+if(isset($_GET["do"])&&($_GET["do"]=="showSTable")){
+	$grade=$_GET['grade_id'];
+	echo '<script>','CPageGrade1('.$grade.');','</script>';
+}
+?>
+      
+	<script>
       window.addEventListener("popstate", function() {
         if(location.hash === "#!/history") {
           history.replaceState(null, document.title, location.pathname);
@@ -1199,7 +1274,9 @@ display:none;
           },0);
         }
       }, false);
-      }(window, location));
+
+      /* }(window, location)); */
+
    </script>
 
 </div>
@@ -1582,7 +1659,7 @@ window.addEventListener("popstate", function() {
 }(window, location));
 
 
-<!--   /* load students on modal window */-->
+/* load students on modal window */
 
 $('body').on('click', '.submitDetails', function(e){
    e.preventDefault();
@@ -1602,7 +1679,7 @@ $('body').on('click', '.submitDetails', function(e){
             $('.subjectVal').html(sub);
             $('.timeVal').html(time);
             $('.dateVal').html(dt);
-
+			$('.submitToDB'). prop('disabled', false);
            
           }
       });
@@ -1615,48 +1692,60 @@ $('body').on('click', '.submitDetails', function(e){
 
 
   $('body').on('click', '.submitToDB', function(e){
-      e.preventDefault();
-      let rowdata=[];
-      $('#ex1 tr').each(function(i,row){
-         if(!i==0){
-            
-            /* console.log(row); */
-            /* var test = $(this).text();
+	e.preventDefault();
+	let rowdata=[];
+	let counter = 0;
+	function clearMsg(){
+		$('.attendance-status').text('');
+		$('.error-status').text('');
+	}
+	let timeout = setTimeout(()=>{
+				clearMsg();
+			}, 5000);
+			
+	$('#ex1 tr').each(function(i,row){
+		if(!i==0){
+		
+		
+		let classId = $(this).find('td:nth-child(1)').attr('data-classid');
+		
+		let studId = $(this).find('td:nth-child(2)').attr('data-studid');
+		let subject = $(this).find('td:nth-child(3)').text();
+		let date = $(this).find('td:nth-child(4)').text();
+		let time = $(this).find('td:nth-child(5)').text();
+		let attendance = ($(this).find('td:nth-child(6)').find('input[type="checkbox"]').is(':checked')) ? 'Present' : 'Absent';
+		rowdata.push({classId:classId, studId:studId, subject:subject, date:date, time:time, attendance:attendance });
+		if(attendance == 'Present') counter++;
+		}
+	});
 
-            var trimVal = test.trim().split("\n");
-            var trimRes = trimVal.map(val=> val.trim());
-            console.log(trimRes); */
-            /* rowdata.push(trimRes); */
-            let classId = $(this).find('td:nth-child(1)').attr('data-classid');
-            
-            let studId = $(this).find('td:nth-child(2)').attr('data-studid');
-            let subject = $(this).find('td:nth-child(3)').text();
-            let date = $(this).find('td:nth-child(4)').text();
-            let time = $(this).find('td:nth-child(5)').text();
-            let attendance = ($(this).find('td:nth-child(6)').find('input[type="checkbox"]').is(':checked')) ? 'Present' : 'Absent';
-            rowdata.push({classId:classId, studId:studId, subject:subject, date:date, time:time, attendance:attendance });
-            
-         }
-         
-      });
-      console.log(rowdata);
-               
-      $.ajax({
-            
-            url:"register_attendance.php",    
-            type: "post",
-            data:{data: rowdata},
-            success:function(response){ 
-               $('.attendance-status').text(response);
-               setTimeout(clearMsg, 4000);
-
-               function clearMsg(){
-                  $('.attendance-status').text('');
-               }
-              
-            }
-            
-      });
+	console.log(rowdata);
+	if(counter>0){
+		$.ajax({
+			
+			url:"register_attendance.php",    
+			type: "post",
+			data:{data: rowdata},
+			success:function(response){ 
+					clearTimeout(timeout);
+					$('.attendance-status').text(response);
+					timeout = setTimeout(()=>{
+									clearMsg();
+								}, 5000);
+				
+				}
+			
+		});
+	}else{
+			$('.error-status').text("Please select at least one checkbox!!!");
+			timeout = setTimeout(()=>{
+									clearMsg();
+								}, 5000);
+				
+			
+		}
+	 
+      
 });
 
 
