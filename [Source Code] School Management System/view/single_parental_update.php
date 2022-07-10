@@ -216,7 +216,7 @@
       $std_index=$_GET["std_index"];
       $index=$_SESSION["index_number"];
       
-      $sql ="select email,studId,date,month,year,subject from my_attendance  
+      $sql ="select email,studId,date,year,subject from my_attendance  
              inner join parents on my_attendance.studId = parents.my_son_index";
       $result=mysqli_query($conn,$sql);
       $row=mysqli_fetch_assoc($result);
@@ -231,38 +231,7 @@
       $result2=mysqli_query($conn,$sql2);
       $row2=mysqli_fetch_assoc($result2);
       
-
-
-
-      /*$sql = "SELECT * FROM student_attendance";
-      $result=mysqli_query($conn,$sql);
-      $row=mysqli_fetch_assoc($result);
-      
-      $sql1 = "SELECT email FROM parents WHERE my_son_index=$std_index";
-      $result1=mysqli_query($conn,$sql1);
-      $row1=mysqli_fetch_assoc($result1);
-      
-      $sql2 = "SELECT * FROM teacher WHERE index_number='$index'";
-      $result2=mysqli_query($conn,$sql2);
-      $row2=mysqli_fetch_assoc($result2);
-      
-      $sql3 = "SELECT * FROM student_attendance";
-      $result3=mysqli_query($conn,$sql3);
-      $row3=mysqli_fetch_assoc($result3);*/
-      
-      /*if(isset($_POST["submit"])){
-         $to = $_POST['email'];
-         $subject=$_POST['subject'];
-         $message =$_POST['message'];
-         $from = $_POST['from_email'];
-      
-         if(mail($to, $subject, $message, $from )){
-            echo 'Your mail has been sent successfully.';
-         } else{
-            echo 'Unable to send email. Please try again.';
-         }
-      }*/
-      
+         
      if (isset($_POST["submit"])){
       $to = $_POST['email'];
       //$to = "veenasvastrad4@gmail.com";
@@ -303,13 +272,12 @@
       </style></head><body>';
       $message .= '<table class="styled-table" >';
       $message .= ' <thead><tr>';
-      $message .= '<th>Std Id</th><th>Month</th><th>Year</th><th>Total Present</th><th>Total Absent</th>';
-      $message .= '<tbody><tr class="active-row"  style="border-bottom: 2px solid #009879;">';
+      $message .= '<th>Std Id</th><th>Year</th><th>Total Present</th><th>Total Absent</th>';
+      $message .= '<tbody><tr class="active-row" style="border-bottom: 2px solid #009879;">';
       //if ($result->num_rows>0){
                 //  while ($row = $result->fetch_assoc()){
                      
       $message .= '<td>'.$std_index.'</td>';
-      $message .= '<td>'. $row['month'].'</td>';
       $message .= '<td>'. $row['year'].'</td>';
       $message .= '<td>'. $row1['present'].'</td>';
       $message .= '<td>'.$row1['absent'].'</td></tr>';
@@ -348,17 +316,7 @@
                                  <input type="text" class="form-control" name="email" autocomplete="off" value="<?php echo $row['email']?>" readonly>  
                               </div>
                            </div>
-
-                           <!--input type="hidden" class="form-control" name="from_email" autocomplete="off" value="veena.t.7671@gmail.com" readonly-->  
-                           <!--<div class="form-group">
-                              <div class="col-xs-3">
-                                <label for="exampleInputFrom">From :</label>
-                               </div>
-                               <div class="col-xs-9">
-                               <input type="text" class="form-control" name="email" autocomplete="off" value="veenasvastrad4@gmail.com" readonly>  
-                              </div>                    
-                              </div>-->
-                           <div class="form-group">
+                         <div class="form-group">
                               <div class="col-xs-3">
                                  <label for="exampleInputFrom">From :</label>
                               </div>
@@ -384,7 +342,6 @@
             <thead>
                <tr>
                   <th>Std Id</th>
-                  <th>Month</th>
                   <th>Year</th>
                   <th>Total Present</th>
                   <th>Total Absent</th>
@@ -396,7 +353,6 @@
                      ?>
                <tr class="active-row">
                   <td><?php echo $std_index;?></td>
-                  <td><?php echo $row['month'];?></td>
                   <td><?php echo $row['year'];?></td>
                   <td><?php echo $row1['present'];?></td>
                   <td><?php echo $row1['absent'];?></td>

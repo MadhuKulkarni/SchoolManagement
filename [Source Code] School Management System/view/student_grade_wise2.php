@@ -22,11 +22,9 @@
                 session_start();
                 $_SESSION["class_id"]= $grade_id;
                 ?>
-                <div class="col-md-9 pull-right"> 
-                    <a  href="add_student2.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-info btn-xs">Add Student</a>
-                    <a  href="parental_update.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-success btn-xs">Parental Update</a>
-                    
-                </div>
+                <div class="pull-right"> 
+                    <a href="add_student2.php?grade_id=<?php echo $grade_id; ?>" class="btn btn-info btn-xs" style="margin-right:5px;padding:5px 10px;">Add Student</a>
+               </div>
             </div><!-- /.box-header -->
 
         </div>
@@ -67,8 +65,6 @@
                                     <a href="#" class="confirm-delete btn btn-danger btn-xs" data-id="<?php echo $row["std_id"];?>,<?php echo $grade_id; ?>,<?php echo $row["std_index"];?>">Leave</a>
                                     <!--MSK-00146 -->
                                     <a href="#" class="btn btn-success btn-xs" onClick="editSubject(this)"  data-id="<?php echo $row["std_index"]; ?>" >Edit Subject</a>
-                                    <a href="single_parental_update.php?std_index=<?php echo $row["std_index"]; ?>&grade_id=<?php echo $grade_id; ?>" class="btn btn-danger btn-xs">Parental Update</a>  
-
                                 </td>
                             </tr>
                         <?php } } ?>
