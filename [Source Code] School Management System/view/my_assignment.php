@@ -144,7 +144,7 @@
 <!-- /.content-wrapper -->
 		<?php 
             if($grade!=='' && $subject!=''){
-              echo '<section  class="content-header" style="background-color:white; width:63%;border-top: 3px solid #3c8dbc;">';
+              echo '<section  class="content-header" style="background-color:white; width:71%;border-top: 3px solid #3c8dbc;">';
             
                echo '<div class="row" id="table1">';
                  echo '<div class="box-header with-border">';

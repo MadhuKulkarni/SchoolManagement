@@ -11,9 +11,15 @@
    //collecting the Values
    $subject='';
    $grade=''; 
-   if(isset($_POST['grade']) && isset($_POST['subject'])) {
+   $time_date='';
+   $start_time='';
+   $end_time='';
+   if(isset($_POST['grade']) && isset($_POST['subject'])&& isset($_POST['date'])&& isset($_POST['start_time'])&& isset($_POST['end_time'])) {
    $grade = (int)$_POST['grade'];
    $subject = (int)$_POST['subject'];
+   $time_date = $_POST['date'];
+   $start_time = $_POST['start_time'];
+   $end_time = $_POST['end_time'];
    }
    ?>
 <?php include_once('head.php'); ?>
@@ -76,32 +82,32 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-      <h1>Assignment
+      <h1>Feedback
          <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li><a href="#">Assignment Page</a></li>
+         <li><a href="#">Feedback Page</a></li>
       </ol>
    </section>
    <!-- Main content -->
    <section class="content">
       <div class="row">
-         <div class="col-md-5">
+         <div class="col-md-12">
             <!-- left column -->
             <form method="post" action="">
                <div class="box box-primary">
                   <!-- general form elements -->
                   <div class="box-header with-border">
-                     <h3 class="box-title">Assignment Page</h3>
+                     <h3 class="box-title">Feedback Page</h3>
                   </div>
                   <!-- /.box-header -->
                   <div class="box-body">
-                     <div class="form-group col-md-5" id="divGender1">
+                     <div class="form-group col-md-4" id="divGender1">
                         <label>Grade</label>
                         <select name="grade" class="form-control col-md-3">
                            <!--MSK-000107-->
-                           <option>Select Grade</option>
+                           <option value="">Select Grade</option>
                            <?php
                               include_once('../controller/config.php');
                               $sql="SELECT * FROM grade";
@@ -113,11 +119,11 @@
                            <?php }} ?>
                         </select>
                      </div>
-                     <div class="form-group col-md-5" id="divGender1">
+                     <div class="form-group col-md-4" id="divGender1">
                         <label>Subject</label>
                         <select name="subject" class="form-control " >
                            <!--MSK-000107-->
-                           <option>Select Subject</option>
+                           <option value="">Select Subject</option>
                            <?php
                               include_once('../controller/config.php');
                               $sql="SELECT * FROM subject";
@@ -129,7 +135,57 @@
                            <?php }} ?>
                         </select>
                      </div>
-                  </div>
+                  
+                     <div class="form-group col-md-4" id="divGender1">
+                        <label>Date</label>
+                        <select name="date" class="form-control col-md-3">
+                           <!--MSK-000107-->
+                           <option value="">Select Date</option>
+                           <?php
+                              include_once('../controller/config.php');
+                              $sql="SELECT * FROM timetable";
+                              $result=mysqli_query($conn,$sql);
+                              if(mysqli_num_rows($result) > 0){
+                              	while($row=mysqli_fetch_assoc($result)){
+                              ?> 
+                           <option value="<?php echo $row["time_date"]; ?>" <?php echo ($time_date != '' && $time_date == $row["time_date"]) ? 'selected' : ''; ?>><?php echo $row['time_date']; ?></option>
+                           <?php }} ?>
+                        </select>
+                     </div>
+                     
+                     <div class="form-group col-md-4" id="divGender1">
+                        <label>start Time</label>
+                        <select name="start_time" class="form-control col-md-3">
+                           <!--MSK-000107-->
+                           <option value="">Select Time</option>
+                           <?php
+                              include_once('../controller/config.php');
+                              $sql="SELECT * FROM timetable";
+                              $result=mysqli_query($conn,$sql);
+                              if(mysqli_num_rows($result) > 0){
+                              	while($row=mysqli_fetch_assoc($result)){
+                              ?> 
+                           <option value="<?php echo $row["start_time"]; ?>" <?php echo ($start_time != '' && $start_time == $row["start_time"]) ? 'selected' : ''; ?>><?php echo $row['start_time']; ?></option>
+                           <?php }} ?>
+                        </select>
+                     </div>
+                     <div class="form-group col-md-4" id="divGender1">
+                        <label>End Time</label>
+                        <select name="end_time" class="form-control col-md-3">
+                           <!--MSK-000107-->
+                           <option value="">End Time</option>
+                           <?php
+                              include_once('../controller/config.php');
+                              $sql="SELECT * FROM timetable";
+                              $result=mysqli_query($conn,$sql);
+                              if(mysqli_num_rows($result) > 0){
+                              	while($row=mysqli_fetch_assoc($result)){
+                              ?> 
+                           <option value="<?php echo $row["end_time"]; ?>" <?php echo ($end_time != '' && $end_time == $row["end_time"]) ? 'selected' : ''; ?>><?php echo $row['end_time']; ?></option>
+                           <?php }} ?>
+                        </select>
+                     </div>
+            
                   <!-- /.box-body -->
                   <div class="box-footer">
                      <input type="submit" class="btn btn-primary" value="Next"><!--MSK-000108-->
@@ -144,12 +200,12 @@
    <!-- table for view all records-->
    <!--MSK-000112--> 
    <?php 
-      if($grade!=='' && $subject!=''){
-        echo '<section  class="content-header" style="background-color:white; width:71%;border-top: 3px solid #3c8dbc;">';
+      if($grade!=='' && $subject!=='' && $time_date!==''){
+        echo '<section  class="content-header" style="background-color:white; width:100%;border-top: 3px solid #3c8dbc;">';
       
          echo '<div class="row" id="table1">';
            echo '<div class="box-header with-border">';
-             echo  '<h3 class="box-title">Add Assignments</h3>';
+             echo  '<h3 class="box-title">Add Feedback</h3>';
            echo '</div>';
          // $sql= "SELECT timetable.time_date,timetable.start_time,timetable.end_time,timetable.assignment,
          // subject.name,timetable.id            
@@ -167,58 +223,68 @@
          //       left join student
          //       on student.id=student_assignment.student_id
          //       where timetable.grade_id = ".$grade." and timetable.subject_id = ".$subject;
+         $appendable_query = '';
+         if($start_time != '') {
+            $appendable_query .= " AND timetable.start_time='".$start_time."'";
+         }
+         if($end_time != '') {
+            $appendable_query .= " AND timetable.end_time='".$end_time."'";
+         }
          $sql= "SELECT timetable.time_date AS TT_DATE,timetable.start_time AS START_TIME,timetable.end_time AS END_TIME,timetable.assignment AS TEACHER_ASSIGNMENT,
          subject.name AS SUBJECT_NAME,timetable.id AS TT_ID
          from timetable      
          inner join subject
          on subject.id=timetable.subject_id
-         where timetable.grade_id = ".$grade." and timetable.subject_id = ".$subject;
-
+         where timetable.grade_id = ".$grade." and timetable.subject_id = ".$subject." and timetable.time_date='".$time_date."'".$appendable_query;
+         //    echo $time_date;
+         // echo $start_time;
+         // echo $end_time;
+         // echo $sql;exit;
          $result2=mysqli_query($conn,$sql);
         
          echo '<div class="box-body table-responsive">';
          echo "<table class='table table-bordered table-striped' style='width:83% ;'>";
          echo "<thead> 
-               <th>Date</th>
-               <th>Subject Name</th>
-               <th>Start Time</th>
-               <th>End Time</th>
-               <th>Teacher Assignment</th>
-              <!--<th>Students Assignment</th>-->
+               
+             
+               
+                             <th>Students Assignment</th>
                </thead>";
-         echo "<tbody  style='height:0px!important'>";
+         echo "<tbody>";
 
          while($row=mysqli_fetch_assoc($result2)){
          $teacher_assignment = '<input type="file" class="fileAjax" name="fileAjax"/ style="width:200px;"><button class="uploadAssignment">Submit</button><span class="status"></span>';
-         $teacher_assignment .= ($row['TEACHER_ASSIGNMENT'] == '') ? '<a href="" target="_blank" style="padding-left:20px;color:aqua;font-weight:800"></a>': '<a href="'.$row['TEACHER_ASSIGNMENT'].'" target="_blank" style="padding-left:20px;color:aqua;font-weight:800">View Assignment</a>';
+         $teacher_assignment .= ($row['TEACHER_ASSIGNMENT'] == '') ? '': '<a href="'.$row['TEACHER_ASSIGNMENT'].'" target="_blank" style="padding-left:20px;color:aqua;font-weight:800">View Assignment</a>';
             echo "<tr>
-               <td>{$row['TT_DATE']}</td>
-               <td>{$row['SUBJECT_NAME']}</td>
-               <td>{$row['START_TIME']}</td>
-               <td>{$row['END_TIME']}</td>
-               <td style='display: flex' data-id='". $row['TT_ID']. "'>{$teacher_assignment}</td></tr>";
-               // <td>";
-            //    $sql2 = 'SELECT student_assignment.id AS STUDENT_ASSIGNMENT_ID, student_assignment.assignment_upload AS STUDENT_ASSIGNMENT, student_assignment.feedback AS TEACHER_FEEDBACK, student.full_name AS STUDENT_NAME from student_assignment left join student
-            //    on student.id=student_assignment.student_id
-            //    where student_assignment.timetable_id = '.$row['TT_ID'];
+         
+          
 
-            // $resultAssignment=mysqli_query($conn,$sql2);
-            // // echo "<table>";
-            // // echo "<tbody>";
-            // while($row2=mysqli_fetch_assoc($resultAssignment)) {
-            //    $student_assignment = ($row2['STUDENT_ASSIGNMENT'] == '') ? '': '<a href="'.$row2['STUDENT_ASSIGNMENT'].'" target="_blank" style="padding-left:20px;color:aqua;font-weight:800">View Assignment</a>';
-            //    $feedback = '<select class="feedback" name="feedback"/ style=""><option>Select Feedback</option><option value="Completed">Completed</option><option value="Failed">Failed</option></select><button class="submitFeedback">Submit</button>';
-            //    $feedback .= '<span class="feedbackVal">'.$row2['TEACHER_FEEDBACK'].'</span>';
+               <!--<td style='display: flex' data-id='". $row['TT_ID']. "'>{$teacher_assignment}</td>-->
+               <td>";
+               $sql2 = 'SELECT student_assignment.id AS STUDENT_ASSIGNMENT_ID, student_assignment.assignment_upload AS STUDENT_ASSIGNMENT, student_assignment.feedback AS TEACHER_FEEDBACK, student.full_name AS STUDENT_NAME 
+               from student_assignment
+               left join student
+               on student.id=student_assignment.student_id
+               where student_assignment.timetable_id = '.$row['TT_ID'];
 
-            //    echo "<tr>
-            //    <!--<td>{$row2['STUDENT_NAME']}</td>
-            //    <td>{$student_assignment}</td>
-            //    <td data-id='".$row2['STUDENT_ASSIGNMENT_ID']."'>{$feedback}</td>-->
-            //    </tr>";
-            // }
-            // echo "</tbody>";
-            // echo "</table>";
-            // echo "</td>
+            $resultAssignment=mysqli_query($conn,$sql2);
+            echo "<table>";
+            echo "<tbody>";
+            while($row2=mysqli_fetch_assoc($resultAssignment)) {
+               $student_assignment = '<a href="'.$row2['STUDENT_ASSIGNMENT'].'" target="_blank" style="padding-left:20px;color:aqua;font-weight:800">View Assignment</a>';
+               $feedback = '<select class="feedback" name="feedback"/ style=""><option value="Please Select Feedback">Select Feedback</option><option value="Completed">Completed</option><option value="Failed">Failed</option></select><button class="submitFeedback">Submit</button>';
+               $feedback .= '<span class="feedbackVal">'.$row2['TEACHER_FEEDBACK'].'</span>';
+
+               echo "<tr>
+               <td>{$row2['STUDENT_NAME']}</td>
+               <td>{$student_assignment}</td>
+               <td data-id='".$row2['STUDENT_ASSIGNMENT_ID']."'>{$feedback}</td>
+               </tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+            echo "</td>
+            </tr>";
          }
          echo "</tbody>";
          echo "</table>";
@@ -236,10 +302,9 @@
       $('.uploadAssignment').on('click', function(event) {
          event.preventDefault();
          let button = $(this);
-         let id = button.parent().attr('data-id');
-         let file = button.prev();
-         let status = button.next();
-         let viewAssignment = button.parent().find('a');
+         let id = $(this).parent().attr('data-id');
+         let file = $(this).prev();
+         let status = $(this).next();
    
          status.text('Uploading...');
    
@@ -265,25 +330,18 @@
             contentType: false,
             processData: false,
             success: function(response) {
-               response = JSON.parse(response);
-               if(!('error' in response)) {
-                  viewAssignment.attr('href', response.data);
-                  viewAssignment.text('View Assignment');
-                  status.text('Uploaded');
+               if(response.includes('has been uploaded')) {
                   file.hide();
                   button.hide();
                   status.css({
                      'color': 'green'
                   });
-                  setTimeout(function() {
-                     status.fadeOut(100);
-                  }, 5000);
                } else {
-                  status.text(response.error);
                   status.css({
                      'color': 'red'
                   });
                }
+               status.text(response);
             }
          });
       });
@@ -295,15 +353,20 @@
          let feedbackValue = feedbackDropDown.val();
          let feedbackDisplay = button.parent().find('.feedbackVal');
          let id = button.parent().attr('data-id');
-
-         $.ajax({
+         if(feedbackValue != 'Please Select Feedback') {
+            $.ajax({
             url: 'uploadFile.php',
             type: 'POST',
             data: {feedback: feedbackValue, id: id},
             success: function(response) {
+               feedbackDropDown.hide();
+               button.hide();
                feedbackDisplay.text(response);
             }
          });
+         } else {
+            alert(feedbackValue);
+         }
       });
    });
    
