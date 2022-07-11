@@ -1448,3 +1448,15 @@ COMMIT;
 UPDATE grade SET name = 'Class 1' WHERE id = 11;
 UPDATE grade SET name = 'Class 2' WHERE id = 12;
 UPDATE grade SET name = 'Class 3' WHERE id = 13;
+
+--
+-- Table structure for table `student_assignment`
+--
+
+CREATE TABLE `student_assignment` (
+  `id` int(11) NOT NULL,
+  `timetable_id` int(11) NOT NULL,
+  `assignment_upload` varchar(255) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `feedback` varchar(255) NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
