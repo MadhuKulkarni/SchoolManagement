@@ -1,5 +1,3 @@
-nes (1217 sloc)  42.3 KB
-
 -- phpMyAdmin SQL Dump
 -- version 4.9.7
 -- https://www.phpmyadmin.net/
@@ -14,6 +12,14 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE TABLE `notification` (
+  `id` int(11) NOT NULL  AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `status` varchar(255) NOT NULL
+   PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1459,4 +1465,5 @@ CREATE TABLE `student_assignment` (
   `assignment_upload` varchar(255) NOT NULL,
   `student_id` int(11) NOT NULL,
   `feedback` varchar(255) NOT NULL,
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
