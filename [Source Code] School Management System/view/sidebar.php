@@ -33,6 +33,11 @@ $image=$row['image_name'];
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
+        <li>
+          <a href="admin_notification.php">
+            <i class="material-icons" style="font-size:20px">notifications</i> <span>Notification</span>
+          </a>
+        </li>
          <li>
           <a href="admin_profile.php">
             <i class="fa fa-flag"></i> <span>My Profile</span>
