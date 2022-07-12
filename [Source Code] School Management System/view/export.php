@@ -70,7 +70,7 @@ if(isset($_POST["className"]) && isset($_POST["subjectInp"]) && isset($_POST["mo
         }
 
         
-        $sql = "select s.full_name, s.index_number, a.subject, a.date, a.time, a.month, a.year, c.name, a.attendance from student as s JOIN my_attendance as a ON s.id = a.studid JOIN grade as c ON a.classid = c.id ".$whereClause;
+        $sql = "select s.full_name, s.id, a.subject, a.date, a.time, a.month, a.year, c.name, a.attendance from student as s JOIN my_attendance as a ON s.id = a.studid JOIN grade as c ON a.classid = c.id ".$whereClause;
 
         include_once('../controller/config.php');
         $result=mysqli_query($conn,$sql);
@@ -80,7 +80,7 @@ if(isset($_POST["className"]) && isset($_POST["subjectInp"]) && isset($_POST["mo
             $table_markup .= '<thead>
                                     <th class="col-md-1">ID</th>
                                     <th class="col-md-1">Student Name</th>
-                                    <th class="col-md-1">Student Index No</th>
+                                    <th class="col-md-1">Student ID</th>
                                     <th class="col-md-1">Class</th>
                                     <th class="col-md-1">Subject</th>
                                     <th class="col-md-1">Date</th>
@@ -96,7 +96,7 @@ if(isset($_POST["className"]) && isset($_POST["subjectInp"]) && isset($_POST["mo
                 $table_markup .= '<tr>';
                 $table_markup .= '<td>'.$count.'</td>';
                 $table_markup .= '<td>'.$row["full_name"].'</td>';
-                $table_markup .= '<td>'.$row["index_number"].'</td>';
+                $table_markup .= '<td>'.$row["id"].'</td>';
                 $table_markup .= '<td>'.$row["name"].'</td>';
                 $table_markup .= '<td>'.$row["subject"].'</td>';
                 $table_markup .= '<td>'.$row["date"].'</td>';
@@ -123,7 +123,7 @@ if(isset($_POST["className"]) && isset($_POST["subjectInp"]) && isset($_POST["mo
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename=students_attendance.csv');
         $output=fopen("php://output", "w");
-        fputcsv($output, array('Student Name', 'Student Index No', 'Subject', 'Date', 'Time','Month', 'Year', 'Class',  'Attendance'));
+        fputcsv($output, array('Student Name', 'Student ID', 'Subject', 'Date', 'Time','Month', 'Year', 'Class',  'Attendance'));
         $className = trim($_POST["className"]);
         $monthInp = trim($_POST["monthInp"]);
         $yearInp = trim($_POST["yearInp"]);
@@ -187,7 +187,7 @@ if(isset($_POST["className"]) && isset($_POST["subjectInp"]) && isset($_POST["mo
                 
             }
         }
-        $sql = "select s.full_name, s.index_number, a.subject, a.date, a.time, a.month, a.year, c.name, a.attendance from student as s JOIN my_attendance as a ON s.id = a.studid JOIN grade as c ON a.classid = c.id ".$whereClause;
+        $sql = "select s.full_name, s.id, a.subject, a.date, a.time, a.month, a.year, c.name, a.attendance from student as s JOIN my_attendance as a ON s.id = a.studid JOIN grade as c ON a.classid = c.id ".$whereClause;
         $result = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_assoc($result)){
             fputcsv($output, $row);

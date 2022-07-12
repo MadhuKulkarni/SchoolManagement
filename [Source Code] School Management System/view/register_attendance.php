@@ -1,8 +1,6 @@
 <?php
     include_once('../controller/config.php');
    
-    
-    
     // echo "<pre>";
     // print_r($_POST["data"]);
     // echo "</pre>";
@@ -28,13 +26,13 @@
 
             
                     if(!mysqli_query($conn, $sql)) {
-                        $response = 'Error: The same record is been submitted';
+                        $response = 'Error: The same record is been submitted!';
                         throw new Exception($response);
                     }
                 
                 }
 
-                $response = 'Attendance registered successfully';
+                $response = 'Attendance registered successfully!!!';
                 
             }
         

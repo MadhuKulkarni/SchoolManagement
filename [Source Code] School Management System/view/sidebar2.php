@@ -75,7 +75,8 @@ $image=$row['image_name'];
           </a>
           <ul class="treeview-menu">
             <li><a href="assignments.php"><i class="fa fa-circle-o"></i> Assignment</a></li>
-            <li><a href="notes.php"><i class="fa fa-circle-o"></i> Notes</a></li>
+            <li><a href="feedback.php"><i class="fa fa-circle-o"></i> Feedback</a></li>
+            <li><a href="my_notes.php"><i class="fa fa-circle-o"></i>Notes</a></li>
           </ul>
         </li>
         <li class="treeview">

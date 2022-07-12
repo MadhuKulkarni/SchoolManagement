@@ -13,10 +13,15 @@ if(isset($_POST["do"])&&($_POST["do"]=="user_login")){
 	$email1=$row['email'];
 	$password1=$row['password'];
 	$type=$row['type'];
-	
+	// echo gettype($email); 
+	// echo gettype($password); 
+	// echo gettype($email1); 
+	// echo gettype($password1); 
+	// echo $password===$password1;
+	// exit;
 	$msg=0;
 	
-	if($email==$email1 && $password==$password1){
+	if($email===$email1 && $password===$password1){
 		if($type == "Student"){
 			$msg = "Yes he is Student";
 			
