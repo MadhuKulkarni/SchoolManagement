@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+
 if(!isset($_SERVER['HTTP_REFERER'])){
     // redirect them to your desired location
     header('location:../index.php');
@@ -224,68 +226,6 @@ $total_count2=$row2['count(id)'];
         <!-- fix for small devices only -->
         <div class="clearfix visible-sm-block"></div>
 
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Monthly Fee</span>
-<?php
-include_once('../controller/config.php');
-$my_index= $_SESSION["index_number"];
-$current_year=date('Y'); 
-$current_month=date('F'); 
-$monthly_fee=0;
-
-$sql="select subject_routing.fee as s_fee 
-      from student_subject
-	  inner join subject_routing
-	  on student_subject.sr_id=subject_routing.id 
-      where student_subject.index_number='$my_index' and year='$current_year'";
-
-$result=mysqli_query($conn,$sql);
-    
-if(mysqli_num_rows($result) > 0){
-    while($row=mysqli_fetch_assoc($result)){
-        
-		$monthly_fee+=$row['s_fee'];
-		$monthly_fee = number_format($monthly_fee, 2, '.', '');
-	}
-	
-}
-
-?>  
-              <span class="info-box-number"><small>$</small><?php echo $monthly_fee ?></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text">Total Paid</span>
-<?php
-include_once('../controller/config.php');
-
-$sql3="SELECT SUM(paid) FROM student_payment WHERE index_number='$my_index'";
-$total_paid=0;
-
-$result3=mysqli_query($conn,$sql3);
-$row3=mysqli_fetch_assoc($result3);
-$total_paid=$row3['SUM(paid)'];
-
-?>              
-              <span class="info-box-number"><small>$</small><?php echo $total_paid; ?></span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
       </div>
       <!-- /.row -->
      <h5><?php echo $name; ?>,<strong><span style="color:#cf4ed4;"> Welcome back! </span></strong></h5>
