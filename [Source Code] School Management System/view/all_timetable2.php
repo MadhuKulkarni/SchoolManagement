@@ -83,7 +83,91 @@ body.modal-open-noscroll1
     to {top:0; opacity:1}
 }
 
-
+/* Calendar Style Starts */
+.calendar {
+    display: flex;
+    flex-flow: column;
+}
+.calendar .header .month-year {
+    font-size: 20px;
+    font-weight: bold;
+    color: #636e73;
+    padding: 20px 0;
+}
+.calendar .days {
+    display: flex;
+    flex-flow: wrap;
+}
+.calendar .days .day_name {
+    width: calc(100% / 7);
+    border-right: 1px solid #2c7aca;
+    padding: 20px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: #818589;
+    color: #fff;
+    background-color: #448cd6;
+}
+.calendar .days .day_name:nth-child(7) {
+    border: none;
+}
+.calendar .days .day_num {
+    display: flex;
+    flex-flow: column;
+    width: calc(100% / 7);
+    border-right: 1px solid #e6e9ea;
+    border-bottom: 1px solid #e6e9ea;
+    padding: 15px;
+    font-weight: bold;
+    color: #7c878d;
+    cursor: pointer;
+    min-height: 100px;
+}
+.calendar .days .day_num span {
+    display: inline-flex;
+    width: 30px;
+    font-size: 14px;
+}
+.calendar .days .day_num .timetable {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background-color: #f7c30d;
+    color: #fff;
+    word-wrap: break-word;
+}
+.calendar .days .day_num .timetable.green {
+    background-color: #51ce57;
+}
+.calendar .days .day_num .timetable.blue {
+    background-color: #518fce;
+}
+.calendar .days .day_num .timetable.red {
+    background-color: #ce5151;
+}
+.calendar .days .day_num .timetable.yellow {
+    background-color: yellow;
+	color: black;
+}
+.calendar .days .day_num:nth-child(7n+1) {
+    border-left: 1px solid #e6e9ea;
+}
+.calendar .days .day_num:hover {
+    background-color: #fdfdfd;
+}
+.calendar .days .day_num.ignore {
+    background-color: #fdfdfd;
+    color: #ced2d4;
+    cursor: inherit;
+}
+.calendar .days .day_num.selected {
+    background-color: #f1f2f3;
+    cursor: inherit;
+}
+/* Calendar Style Ends */
 </style>
 
 <!-- Content Wrapper. Contains page content -->
@@ -188,8 +272,66 @@ window.addEventListener("popstate", function() {
   }
 }, false);
 }(window, location));
+
+$(document).ready(function() {
+    $('body').on('click', '.timetable', function() {
+        let ttBar = $(this);
+        let subject = ttBar.attr('data-subject');
+        let className = ttBar.attr('data-class');
+        let teacher = ttBar.attr('data-teacher');
+        let meeting = ttBar.attr('data-meeting');
+
+        $('.pop-subject').text(subject);
+        $('.pop-teacher').text(className);
+        $('.pop-class').text(teacher);
+        $('.pop-meeting').text('Join Meeting');
+        $('.pop-meeting').attr('href', meeting);
+        $('#showTtDetails').modal('show');
+    });
+});
 </script>
   	 	
 </div><!-- /.content-wrapper -->  
                               
 <?php include_once('footer.php');?>
+
+<!--Modal Timetable -->
+<div class="modal msk-fade" style="display: none;" id="showTtDetails" tabindex="-1" role="dialog" aria-labelledby="insert_alert1" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;">
+   <div class="modal-dialog">
+      <!--modal-dialog -->  
+      <div class="container col-lg-12 ">
+         <!--modal-content --> 
+         <div class="row">
+            <div class="panel panel-info">
+               <!--panel --> 
+               <div class="panel-heading">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  <h3 class="panel-title" id="hname">Timetable Details</h3>
+               </div>
+               <div class="panel-body">
+                  <!--panel-body -->
+                  <div class="row">
+                     <div class=" col-md-9" style="text-align: center;">
+                        <table style="width: 500px;margin: auto;" class="table table-striped table table-bordered border-primary">
+                            <tr><th style="text-align: right;">Subject:</th><td style="text-align: left;" class="pop-subject"></td></tr>
+                            <tr><th style="text-align: right;">Teacher:</th><td style="text-align: left;" class="pop-teacher"></td></tr>
+                            <tr><th style="text-align: right;">Class:</th><td style="text-align: left;" class="pop-class"></td></tr>
+                            <tr><th style="text-align: right;">Meeting:</th><td style="text-align: left;"><a class="pop-meeting" target="_blank"></a></td></tr>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <!--/.panel-body -->
+               <div class="panel-footer">
+                  <div class="input-group-append"></div>
+               </div>
+            </div>
+            <!--/. panel--> 
+         </div>
+         <!--/.row --> 
+      </div>
+      <!--/.modal-content -->
+   </div>
+   <!--/.modal-dialog -->
+</div>
+<!--modal Timetable-->

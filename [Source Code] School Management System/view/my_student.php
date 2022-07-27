@@ -1830,4 +1830,4 @@ if(isset($_GET["do"])&&($_GET["do"]=="showSTable")){
 	      
 </div><!-- /.content-wrapper -->  
              
-<?php include_once('footer.php');?>
+<?php include_once('footer.php'); ?>
