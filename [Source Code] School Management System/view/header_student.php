@@ -1,3 +1,15 @@
+
+<?php
+include_once('../controller/config.php');
+
+$my_type=$_SESSION["type"];
+$my_index=$_SESSION["index_number"];
+$sql1= "SELECT * from student where index_number='$my_index'";
+$result1=mysqli_query($conn,$sql1);
+$row1=mysqli_fetch_assoc($result1);
+$student_name=$row1['full_name'];
+?>
+
 <body class="hold-transition skin-blue sidebar-mini" >
 <div class="wrapper">
   <header class="main-header" >
@@ -14,6 +26,11 @@
 		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
        		<span class="sr-only">Toggle navigation</span>
        	</a>
+		   <h5 style="
+    display: inline-flex;
+    margin-top: 16px;
+    color: white;
+"><?php echo $student_name; ?>, <strong><span style="color: #fcaaff;">&nbsp;Welcome back! </span></strong></h5>
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
             
@@ -408,14 +425,18 @@ $file_path='';
 			if($type=="Student"){
 				$file_path="my_friends1.php?do=showChatBox&my_index=$index&conversation_id=$conversation_id&friend_index=$friend_index&my_type=$type";
 			}
-			
+			if (strpos($friend_image, "https") === 0) {
+				$friend_image = $friend_image;
+			  } else {
+				$friend_image = '../'.$ifriend_image;
+			  }	
 			
 ?>                      
                       
                       <li><!-- start message -->
                         <a href="<?php echo $file_path; ?>" onClick="msgRead('<?php echo $index; ?>','<?php echo $conversation_id; ?>','<?php echo $friend_index; ?>','<?php echo $type; ?>')">
                           <div class="pull-left">
-                            <img src="../<?php echo $friend_image; ?>" class="img-circle" alt="User Image">
+                            <img src="<?php echo $friend_image; ?>" class="img-circle" alt="User Image">
                           </div>
                           <h4>
                             <?php echo $friend_name; ?>
@@ -550,13 +571,19 @@ if($type=="Admin"){
 	$result=mysqli_query($conn,$sql);
 	$row=mysqli_fetch_assoc($result);	
 }
+$image=$row['image_name'];
 
+if (strpos($image, "https") === 0) {
+  $image = $image;
+} else {
+  $image = '../'.$image;
+}
 ?> 
 
                 <!-- User Account: style can be found in dropdown.less -->
             	<li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="../<?php echo $row['image_name']; ?>" class="user-image" alt="User Image">
+                      <img src="<?php echo $image; ?>" class="user-image" alt="User Image">
                       <span class="hidden-xs"><?php echo $row['i_name']; ?></span>
                     </a>
                     <ul class="dropdown-menu">

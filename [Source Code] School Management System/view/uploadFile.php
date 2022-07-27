@@ -12,18 +12,20 @@
         }
     } else {
         $uploadDirectory = "../uploads/"; 
-        // echo $uploadDirectory;
+        //  echo $uploadDirectory;
         if (!file_exists($uploadDirectory)) {
             mkdir($uploadDirectory, 0777);
-        }
-    
-        $errors = [];
-    
-        $fileExtensions = ['jpeg','jpg','png','gif','docx','doc','pdf'];
+        }    
+        $errors = [];          
+        $fileExtensions = ['jpeg','jpg','png','gif','docx','doc','pdf'];       
     
     
         if(!empty($_FILES['fileAjax'] ?? null && isset($_POST['id']))) {
             $id = (int)$_POST['id'];
+            // echo $id;
+            // echo "<pre>";
+            //    print_r($id);
+            //    echo "</pre>";
             $fileName = $_FILES['fileAjax']['name'];
             $fileTmpName  = $_FILES['fileAjax']['tmp_name'];
             $fileType = $_FILES['fileAjax']['type'];

@@ -13,7 +13,14 @@
    $grade=''; 
    if(isset($_POST['grade']) && isset($_POST['subject'])) {
    $grade = (int)$_POST['grade'];
+   // //  $grade = $_POST['grade'];
+   
+   // echo $grade;
+
    $subject = (int)$_POST['subject'];
+   // echo $subject;
+
+   // echo "divya here";
    }
    ?>
 <?php include_once('head.php'); ?>
@@ -74,6 +81,7 @@
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+   
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h1>Assignment
@@ -105,9 +113,20 @@
                            <?php
                               include_once('../controller/config.php');
                               $sql="SELECT * FROM grade";
+                            
                               $result=mysqli_query($conn,$sql);
+                              // echo "<pre>";
+                              // print_r($result);
+                              // echo "</pre>";
+                             
+                              
                               if(mysqli_num_rows($result) > 0){
+                                 
                               	while($row=mysqli_fetch_assoc($result)){
+                                    //  echo "<pre>";
+                                    
+                                    //  print_r($row);
+                                    //  echo "</pre>";
                               ?> 
                            <option value="<?php echo $row["id"]; ?>" <?php echo ($grade != '' && $grade == $row["id"]) ? 'selected' : ''; ?>><?php echo $row['name']; ?></option>
                            <?php }} ?>
@@ -144,7 +163,7 @@
    <!-- table for view all records-->
    <!--MSK-000112--> 
    <?php 
-      if($grade!=='' && $subject!=''){
+      if($grade!='' && $subject!=''){
         echo '<section  class="content-header" style="background-color:white; width:71%;border-top: 3px solid #3c8dbc;">';
       
          echo '<div class="row" id="table1">';
@@ -171,11 +190,12 @@
          subject.name AS SUBJECT_NAME,timetable.id AS TT_ID
          from timetable      
          inner join subject
-         on subject.id=timetable.subject_id
+         on subject.id = timetable.subject_id
          where timetable.grade_id = ".$grade." and timetable.subject_id = ".$subject;
-
+   //  echo  $sql;  exit;
          $result2=mysqli_query($conn,$sql);
-        
+       
+         // echo  $result2;  exit;
          echo '<div class="box-body table-responsive">';
          echo "<table class='table table-bordered table-striped' style='width:83% ;'>";
          echo "<thead> 
@@ -189,6 +209,10 @@
          echo "<tbody  style='height:0px!important'>";
 
          while($row=mysqli_fetch_assoc($result2)){
+               // echo "<pre>";
+               // print_r($row);
+               // echo "</pre>";
+
          $teacher_assignment = '<input type="file" class="fileAjax" name="fileAjax"/ style="width:200px;"><button class="uploadAssignment">Submit</button><span class="status"></span>';
          $teacher_assignment .= ($row['TEACHER_ASSIGNMENT'] == '') ? '<a href="" target="_blank" style="padding-left:20px;color:aqua;font-weight:800"></a>': '<a href="'.$row['TEACHER_ASSIGNMENT'].'" target="_blank" style="padding-left:20px;color:aqua;font-weight:800">View Assignment</a>';
             echo "<tr>
@@ -229,14 +253,16 @@
       ?>
 </div>
 <!-- " sdfsdfsdf= '".$dfdf."' sfddsfsdf"
-   ' sdfsdfsdf= "'.$dfdf.'" sfddsfsdf' -->
+   'sdfsdfsdf= "'.$dfdf.'" sfddsfsdf' -->
 <?php include_once('footer.php');?>
 <script>
    $(document).ready(function(){
       $('.uploadAssignment').on('click', function(event) {
          event.preventDefault();
          let button = $(this);
+        
          let id = button.parent().attr('data-id');
+         
          let file = button.prev();
          let status = button.next();
          let viewAssignment = button.parent().find('a');
