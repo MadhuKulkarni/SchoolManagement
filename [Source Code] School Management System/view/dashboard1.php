@@ -1492,10 +1492,21 @@
    border: 1px solid transparent;
    pointer-events: none;
    }
+
+#chartdiv {
+	width		: 100%;
+	height		: 240px;
+	font-size	: 11px;
+}
+
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header)-->
+
+
+
+   
    <section class="content-header">
       <h1>
          Dashboard
@@ -1506,6 +1517,8 @@
          <li><a href="#">Dashboard</a></li>
       </ol>
    </section>
+
+   
    <?php
       include_once('../controller/config.php');
       
@@ -1519,8 +1532,51 @@
       ?>    
    <!-- Main content -->
    <section class="content" style="min-height: auto;">
+  	
+
+
+
+
+
+   <div class="row">
+					<div class="col-xs-12 col-md-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Strength Chart<ul class="rad-panel-action"></h3> </div>
+							<div class="panel-body">
+								<div id="stuTeaAdminChart" class="rad-chart">
+                  <div id="chartdiv"></div>
+                  <div class="container-fluid" style="margin-top:-40px;">
+                    <div class="row text-center" style="overflow:hidden;">
+                      <div class="col-sm-3" style="float: none !important;display: inline-block;">
+                        <label class="text-left">Angle:</label>
+                        <input class="chart-input" data-property="angle" type="range" min="0" max="60" value="30" step="1"/>	
+                      </div>
+                      <div class="col-sm-3" style="float: none !important;display: inline-block;">
+                        <label class="text-left">Depth:</label>
+                        <input class="chart-input" data-property="depth3D" type="range" min="1" max="25" value="10" step="1"/>
+                      </div>
+                      <div class="col-sm-3" style="float: none !important;display: inline-block;">
+                        <label class="text-left">Inner-Radius:</label>
+                        <input class="chart-input" data-property="innerRadius" type="range" min="0" max="80" value="0" step="1"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">Student Chart</h3> </div>
+							<div class="panel-body">
+								<div id="areaChart2" class="rad-chart"></div>
+							</div>
+						</div>
+					</div>
    <!-- Info boxes -->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="rad-info-box rad-txt-success">
               <i class="ion ion-ios-people"></i>
@@ -1543,23 +1599,11 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="rad-info-box rad-txt-primary">
               <i class="ion ion-ios-people"></i>
-              <span class="heading">Total Teacher</span>
-              <?php
-                include_once('../controller/config.php');
-                
-                $sql2="SELECT count(id) FROM teacher";
-                $total_count2=0;
-                
-                $result2=mysqli_query($conn,$sql2);
-                $row2=mysqli_fetch_assoc($result2);
-                $total_count2=$row2['count(id)'];
-                    
-                ?>
-              <span class="value"><span><?php echo $total_count2; ?></span></span>
-          </div>
-        
+              <span class="heading">Total Teacher</span>       
+          
+           </div>        
         </div>   
-      </div>
+      </div> -->
    <!-- /.col -->
     </section>
    <!-- fix for small devices only -->
@@ -1959,6 +2003,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js"></script>
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
     <script>
         let record = [];
         let months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
@@ -1974,7 +2021,7 @@
               }
               return $sundays;
           }
-          $attendanceQuery = "SELECT MONTHNAME(date), MONTH(date) AS month_num, YEAR(date) AS year, COUNT(*) AS attendance_count FROM student_attendance WHERE index_number=".$my_index." AND _status2='Present' GROUP BY MONTH(date)";
+          $attendanceQuery = "SELECT MONTH(date) AS month_num, YEAR(date) AS year, COUNT(*) AS attendance_count FROM my_attendance WHERE studId=".$my_index." AND attendance='Present' GROUP BY MONTH(date)";
           $attendanceResult = mysqli_query($conn,$attendanceQuery);
           while($row = mysqli_fetch_assoc($attendanceResult)) {
               $monthNum = $row['month_num'] - 1;// converting monthnumeric value from php to js
@@ -2006,7 +2053,7 @@
               matchFlag = true;
             }
           });
-          console.log(matchFlag);
+          // console.log(matchFlag);
           if(!matchFlag) {
             x.push(tempDate);
             y.push(0);
@@ -2015,14 +2062,24 @@
           return tempDate;
         });
         let data = [x, y];
-        console.log(data);
-        let chart = c3.generate({
+        // console.log(data);
+        let attendanceChart = c3.generate({
           bindto: '#attendanceChart',
           data: {
               x:'Month',
               columns: data,
               order:false,
-              type: 'bar'
+              type: 'bar',
+              color: function (color, d) {
+                // console.log(d);
+                if(d.value <= 30) {
+                  return '#FF0000';
+                }else if(d.value > 30 && d.value <= 60) {
+                  return '#FFA500';
+                }else if(d.value > 60 && d.value <= 100) {
+                  return '#00FF00';
+                }
+              }
           },
           bar: {
               width: {
@@ -2035,7 +2092,7 @@
                 tick: {
                   values: xAxisValues,
                   rotate: 0,
-                  format: '%b-%Y',//javascript date format
+                  format: '%b-%y',//javascript date format
                   // culling: false
                 }
               },
@@ -2050,5 +2107,93 @@
           }
         });
     </script>
+<?php
+    $sql2="SELECT type, COUNT(*) AS count FROM user GROUP BY type";
+    $result=mysqli_query($conn,$sql2);
+    $students = 0;
+    $teachers = 0;
+    $admins = 0;
+    if(mysqli_num_rows($result) > 0){
+      while($row=mysqli_fetch_assoc($result)){
+        // echo "<pre>";
+        // print_r ($row); 
+        // echo "</pre>"; 
+        if($row['type'] == 'Admin') {
+          $admins = $row['count'];
+        } else if($row['type'] == 'Student') {
+          $students = $row['count'];
+        } else if($row['type'] == 'Teacher') {
+          $teachers = $row['count'];
+        }
+      }
+    }
+?>
+  <script>
+    // var stuTeaAdminChart = c3.generate({
+    //   bindto: '#stuTeaAdminChart',
+    //     data: {
+    //         columns: [
+    //             ['Students', <?php echo $students;?>],
+    //             ['Teachers', <?php echo $teachers;?>],
+    //             ['Admins', <?php echo $admins;?>]
+    //         ],
+    //         type : 'pie'
+    //     }
+    // });
+
+  </script>
+
+<script>
+
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "pie",
+  "theme": "light",
+  "dataProvider": [
+    {
+      "userType": "Students",
+      "numberOfUsers": <?php echo $students;?>
+    },
+    {
+      "userType": "Teachers",
+      "numberOfUsers": <?php echo $teachers;?>
+    },
+    {
+      "userType": "Admins",
+      "numberOfUsers": <?php echo $admins;?>
+    }
+  ],
+  "valueField": "numberOfUsers",
+  "titleField": "userType",
+  "outlineAlpha": 0.4,
+  "depth3D": 15,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 30,
+  "export": {
+    "enabled": true
+  }
+} );
+
+$(document).ready(function() {
+  // setInterval(() => {
+  //   $('#chartdiv').find('a').remove();
+  // }, 100);
+  // $('#stuTeaAdminChart').find('.container-fluid').css('margin-top', '-40px');
+});
+
+jQuery( '.chart-input' ).off().on( 'input change', function() {
+  var property = jQuery( this ).data( 'property' );
+  var target = chart;
+  var value = Number( this.value );
+  chart.startDuration = 0;
+
+  if ( property == 'innerRadius' ) {
+    value += "%";
+  }
+
+  target[ property ] = value;
+  chart.validateNow();
+} );
+</script>
+
 </div>
 <?php include_once('footer.php'); ?>
