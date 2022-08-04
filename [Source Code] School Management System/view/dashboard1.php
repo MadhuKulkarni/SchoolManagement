@@ -1493,7 +1493,7 @@
    pointer-events: none;
    }
 
-#chartdiv {
+#stuTeaAdminChartDiv, #studentAssignmentAttendanceChartDiv {
 	width		: 100%;
 	height		: 240px;
 	font-size	: 11px;
@@ -1532,12 +1532,6 @@
       ?>    
    <!-- Main content -->
    <section class="content" style="min-height: auto;">
-  	
-
-
-
-
-
    <div class="row">
 					<div class="col-xs-12 col-md-6">
 						<div class="panel panel-default">
@@ -1545,7 +1539,7 @@
 								<h3 class="panel-title">Strength Chart<ul class="rad-panel-action"></h3> </div>
 							<div class="panel-body">
 								<div id="stuTeaAdminChart" class="rad-chart">
-                  <div id="chartdiv"></div>
+                  <div id="stuTeaAdminChartDiv"></div>
                   <div class="container-fluid" style="margin-top:-40px;">
                     <div class="row text-center" style="overflow:hidden;">
                       <div class="col-sm-3" style="float: none !important;display: inline-block;">
@@ -1569,9 +1563,27 @@
 					<div class="col-xs-12 col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h3 class="panel-title">Student Chart</h3> </div>
-							<div class="panel-body">
-								<div id="areaChart2" class="rad-chart"></div>
+								<h3 class="panel-title">Student Performance Chart</h3> </div>
+								<div class="panel-body">
+								<div id="studentAssignmentAttendanceChart" class="rad-chart">
+                  <div id="studentAssignmentAttendanceChartDiv"></div>
+                  <div class="container-fluid" style="margin-top:-40px;">
+                    <div class="row text-center" style="overflow:hidden;">
+                      <div class="col-sm-3" style="float: none !important;display: inline-block;">
+                        <label class="text-left">Angle:</label>
+                        <input class="chart-input" data-property="angle" type="range" min="0" max="60" value="30" step="1"/>	
+                      </div>
+                      <div class="col-sm-3" style="float: none !important;display: inline-block;">
+                        <label class="text-left">Depth:</label>
+                        <input class="chart-input" data-property="depth3D" type="range" min="1" max="25" value="10" step="1"/>
+                      </div>
+                      <div class="col-sm-3" style="float: none !important;display: inline-block;">
+                        <label class="text-left">Inner-Radius:</label>
+                        <input class="chart-input" data-property="innerRadius" type="range" min="0" max="80" value="0" step="1"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 							</div>
 						</div>
 					</div>
@@ -2004,8 +2016,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.20/c3.min.js"></script>
     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-<script src="https://www.amcharts.com/lib/3/pie.js"></script>
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
     <script>
         let record = [];
         let months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
@@ -2022,6 +2034,7 @@
               return $sundays;
           }
           $attendanceQuery = "SELECT MONTH(date) AS month_num, YEAR(date) AS year, COUNT(*) AS attendance_count FROM my_attendance WHERE studId=".$my_index." AND attendance='Present' GROUP BY MONTH(date)";
+         
           $attendanceResult = mysqli_query($conn,$attendanceQuery);
           while($row = mysqli_fetch_assoc($attendanceResult)) {
               $monthNum = $row['month_num'] - 1;// converting monthnumeric value from php to js
@@ -2127,8 +2140,24 @@
         }
       }
     }
+
+    $totalAttendanceQuery = "SELECT COUNT(*) AS attendance_count FROM my_attendance WHERE studId=".$my_index." AND attendance='Present' AND YEAR(date)=YEAR(NOW())";
+    $result=mysqli_query($conn,$totalAttendanceQuery);
+    $totalAttendance = 0;
+    if(mysqli_num_rows($result) > 0) {
+      $row=mysqli_fetch_assoc($result);
+      $totalAttendance = $row['attendance_count'];
+    }
+
+    $totalAssignmentsQuery = "SELECT COUNT(*) AS assignment_count FROM student_assignment JOIN timetable ON student_assignment.timetable_id=timetable.id WHERE student_assignment.student_id=".$my_index." AND YEAR(timetable.time_date)=YEAR(NOW())";
+    $result=mysqli_query($conn,$totalAssignmentsQuery);
+    $totalAssignments = 0;
+    if(mysqli_num_rows($result) > 0) {
+      $row=mysqli_fetch_assoc($result);
+      $totalAssignments = $row['assignment_count'];
+    }
 ?>
-  <script>
+<script>
     // var stuTeaAdminChart = c3.generate({
     //   bindto: '#stuTeaAdminChart',
     //     data: {
@@ -2141,11 +2170,7 @@
     //     }
     // });
 
-  </script>
-
-<script>
-
-var chart = AmCharts.makeChart( "chartdiv", {
+var stuTeaAdminChart = AmCharts.makeChart( "stuTeaAdminChartDiv", {
   "type": "pie",
   "theme": "light",
   "dataProvider": [
@@ -2172,7 +2197,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "enabled": true
   }
 } );
-
+// console.log('C1',chart1);
 $(document).ready(function() {
   // setInterval(() => {
   //   $('#chartdiv').find('a').remove();
@@ -2182,6 +2207,14 @@ $(document).ready(function() {
 
 jQuery( '.chart-input' ).off().on( 'input change', function() {
   var property = jQuery( this ).data( 'property' );
+  var chartID = $(this).parent().parent().parent().prev().attr('id');
+  if(chartID === 'stuTeaAdminChartDiv') {
+    chart = stuTeaAdminChart;
+  } else if(chartID === 'studentAssignmentAttendanceChartDiv') {
+    chart = studentAssignmentAttendanceChart;
+  }
+  // console.log('chartID: ',chartID);
+  // console.log('chart: ',chart);
   var target = chart;
   var value = Number( this.value );
   chart.startDuration = 0;
@@ -2193,6 +2226,32 @@ jQuery( '.chart-input' ).off().on( 'input change', function() {
   target[ property ] = value;
   chart.validateNow();
 } );
+
+var studentAssignmentAttendanceChart = AmCharts.makeChart( "studentAssignmentAttendanceChartDiv", {
+  "type": "pie",
+  "theme": "light",
+  "dataProvider": [
+    {
+      "dataType": "Assignment",
+      "count": <?php echo $totalAssignments;?>
+ 
+    },
+    {
+      "dataType": "Attendance",
+      "count": <?php echo $totalAttendance;?>
+    }
+  ],
+  "valueField": "count",
+  "titleField": "dataType",
+  "outlineAlpha": 0.4,
+  "depth3D": 15,
+  "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+  "angle": 30,
+  "export": {
+    "enabled": true
+  }
+} );
+// console.log('C2',chart2);
 </script>
 
 </div>
