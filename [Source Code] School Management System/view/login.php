@@ -1,5 +1,6 @@
 <?php
 include_once('head.php');
+include_once('../controller/config.php');
 ?>
 
 <style>
@@ -122,7 +123,7 @@ margin-left: 4px;
     	<div class="modal-dialog">    
         	<div class="modal-content ">
         		<div class="modal-header bg-aqua-gradient">
-          			<h4>User SignIn File...!</h4>
+          			<h4>User Login File...!</h4>
         		</div>
         		<div class="modal-body bgColorWhite">
 					<div class="section-a">
@@ -167,8 +168,7 @@ margin-left: 4px;
 						// authenticate code from Google OAuth Flow
 						if (isset($_GET['code'])) {
 							$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-							$client->setAccessToken($token['access_token']);
-
+							//$client->setAccessToken($token['access_token']);
 							// get profile info
 							$google_oauth = new Google_Service_Oauth2($client);
 							$google_account_info = $google_oauth->userinfo->get();
@@ -204,7 +204,7 @@ margin-left: 4px;
 								$row1=mysqli_fetch_assoc($result1);
 								$index_number = intval($row1['index_number']);
 							}
-
+							// echo $index_number; exit;
 							if(!$error) {
 								$_SESSION["index_number"]=$index_number;
 								$_SESSION["type"]="Student";
@@ -236,8 +236,6 @@ margin-left: 4px;
 <script>
 
 function login(){
-//document.ready(function{	
-	
 	$('#loginFrom').modal({
 		backdrop: 'static',
 		keyboard: false
