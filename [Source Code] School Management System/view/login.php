@@ -1,5 +1,7 @@
 <?php
 include_once('head.php');
+include_once('login_head.php');
+include_once('../controller/config.php');
 ?>
 
 <style>
@@ -26,11 +28,7 @@ include_once('head.php');
 	opacity:0.6;	
 }
 
-body{
-	background-color:#fef492;
-}
-
-/* body{
+ body{
 background-image: url('../uploads/background.jpg');
 background-size: cover;
 background-repeat: no-repeat;
@@ -114,10 +112,58 @@ color: white;
 
 .links a{
 margin-left: 4px;
-} */
+} 
 </style>
 <body onLoad="login()">
-	<img src="../uploads/bg.jpg" class="bg" />
+	<!--img src="../uploads/bg.jpg" class="bg" /--->
+	 <div class="container" style="margin-top:80px;">
+      <div class="d-flex justify-content-center h-100">
+         <div class="card"  style=" border-radius: 15px;">
+            <div class="card-header">
+               <h3>Sign In</h3>
+               <div class="d-flex justify-content-end social_icon">
+                  <span><i class="fab fa-facebook-square"></i></span>
+                  <span><i class="fab fa-google-plus-square"></i></span>
+                  <span><i class="fab fa-twitter-square"></i></span>
+               </div>
+            </div>
+            <div class="card-body">
+               <form role="form" action="../index.php" method="post">
+                  <div class="input-group form-group">
+                     <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user fa-2x"></i></span>
+                     </div>
+                     <input type="text" class="form-control" id="email" placeholder="username" name="email" style="font-size:15px;height:40px;">
+                  </div>
+                  <div class="input-group form-group">
+                     <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key fa-2x"></i></span>
+                     </div>
+                     <input type="password" class="form-control" id="password" placeholder="password" name="password" style="font-size:15px;height:40px;">
+                  </div>
+                  <div class="row align-items-center remember">
+                     <input type="checkbox">Remember Me
+                  </div>
+                  <div class="form-group">
+                     <input type="hidden" class="btn float-right login_btn" name="do" value="user_login" />
+                     <button type="submit" class="btn float-right login_btn" id="btnSubmit" style="font-size:15px;">Login</button>
+                     <!--input type="submit" value="Login" class="btn float-right login_btn"-->
+                  </div>
+               </form>
+            </div>
+            <div>
+            </div>
+            <div class="card-footer">
+               <div class="d-flex justify-content-center links">
+                  Don't have an account?<a href="#">Sign Up</a>
+               </div>
+               <div class="d-flex justify-content-center">
+                  <a href="#">Forgot your password?</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
   	<div class="modal fade" id="loginFrom" tabindex="-1" role="dialog" aria-labelledby="loginFrom" aria-hidden="true">
     	<div class="modal-dialog">    
         	<div class="modal-content ">
@@ -167,8 +213,7 @@ margin-left: 4px;
 						// authenticate code from Google OAuth Flow
 						if (isset($_GET['code'])) {
 							$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-							$client->setAccessToken($token['access_token']);
-
+							//$client->setAccessToken($token['access_token']);
 							// get profile info
 							$google_oauth = new Google_Service_Oauth2($client);
 							$google_account_info = $google_oauth->userinfo->get();
@@ -204,7 +249,7 @@ margin-left: 4px;
 								$row1=mysqli_fetch_assoc($result1);
 								$index_number = intval($row1['index_number']);
 							}
-
+							// echo $index_number; exit;
 							if(!$error) {
 								$_SESSION["index_number"]=$index_number;
 								$_SESSION["type"]="Student";
@@ -236,8 +281,6 @@ margin-left: 4px;
 <script>
 
 function login(){
-//document.ready(function{	
-	
 	$('#loginFrom').modal({
 		backdrop: 'static',
 		keyboard: false
